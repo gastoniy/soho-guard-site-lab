@@ -1,0 +1,221 @@
+{#- Ucieczka wartości dla łańcucha RouterOS: \ " $ są znakami specjalnymi.
+    Bez tego hasło z vault zawierające '$' zostałoby potraktowane jako zmienna. -#}
+{%- macro ros(s) -%}{{ s | replace('\\', '\\\\') | replace('"', '\\"') | replace('$', '\\$') }}{%- endmacro -%}
+# =====================================================================
+# routers/r2/baseline.rsc.j2  --  R2, RouterOS v6
+# Struktura 1:1 z R1 (v7). Różnice v6 oznaczone [v6].
+# Wersja docelowa: 6.49.19 (LT serii 6 dostępna na stronie pobierania; decyzja 2026-10-30).
+# Wymaga >= 6.41 (bridge vlan-filtering, interface-list) - 6.49.19 spełnia.
+# 6.49.19 jest >= 6.43, więc librouteros loguje się metodą nowoczesną
+# (bez plaintext_login). Zweryfikować skrypt na obrazie przed testami.
+# rev: {{ baseline_rev }}
+#
+# Szablon Jinja2 renderowany przez test-harness przed wgraniem.
+# Dane instalacji: host_vars (odwzorowanie routers/r2/inventory.yml).
+# Wartości tajne: Ansible Vault.
+#
+# Uruchamiany na czystej konfiguracji:
+#   /system reset-configuration no-defaults=yes keep-users=no \
+#       skip-backup=yes run-after-reset=baseline.rsc
+# Harness wgrywa PRZED resetem (pliki przetrwają reset):
+#   baseline.rsc  bl-api.crt  bl-api.key  ansible_rsa.pub  monitor_rsa.pub
+#
+# Oba routery pracują jednocześnie na wspólnym S1; scenariusze są
+# testowane sekwencyjnie. Segmenty muszą być rozłączne między routerami.
+#   VLAN {{ vlan_mgmt_id }}  MGMT   {{ mgmt_net }}   R2={{ mgmt_ip }}  Monitor Node={{ monitor_ip }}
+#   VLAN {{ vlan_users_id }}  USERS  {{ users_net }}  DHCP {{ users_pool_start }}-{{ users_pool_end }}
+#   WAN  {{ wan_address }}/{{ wan_prefix_len }}  gw {{ wan_gateway }}  (statyczny, = wan_address z inventory.yml)
+# =====================================================================
+
+# Po resecie interfejsy pojawiają się z opóźnieniem
+:delay 15s
+
+# --- System -----------------------------------------------------------
+/system identity set name={{ router_identity }}
+/system clock set time-zone-name=Europe/Warsaw
+# [v6] inny klient NTP niż w v7
+/system ntp client set enabled=yes server-dns-names={{ ntp_server }}
+
+# [v6] Brak /ipv6 settings disable-ipv6. Pakiet ipv6 musi być wyłączony
+# na obrazie (jednorazowo przy przygotowaniu, wymaga restartu):
+#   /system package disable ipv6
+# Powód jak w v7: atrybucja L2 filtruje po wan_address IPv4.
+
+# --- Interfejsy fizyczne ----------------------------------------------
+/interface ethernet
+set [find default-name=ether1] name=ether1-wan comment="BL: WAN (S2)"
+set [find default-name=ether2] name=ether2-trunk comment="BL: trunk S1"
+set [find where name!="ether1-wan" and name!="ether2-trunk"] disabled=yes comment="BL: unused"
+
+# --- Bridge + VLAN filtering (vlan-filtering włączane NA KOŃCU) ------
+/interface bridge
+add name=br-lan protocol-mode=rstp vlan-filtering=no comment="BL"
+
+/interface bridge port
+add bridge=br-lan interface=ether2-trunk frame-types=admit-only-vlan-tagged ingress-filtering=yes comment="BL"
+
+/interface bridge vlan
+add bridge=br-lan vlan-ids={{ vlan_mgmt_id }} tagged=br-lan,ether2-trunk comment="BL: MGMT"
+add bridge=br-lan vlan-ids={{ vlan_users_id }} tagged=br-lan,ether2-trunk comment="BL: USERS"
+
+# Nazwy niezależne od numeru VLAN: playbooki i ścieżki polityki
+# pozostają identyczne dla obu routerów.
+/interface vlan
+add name=vlan-mgmt interface=br-lan vlan-id={{ vlan_mgmt_id }} comment="BL: MGMT"
+add name=vlan-users interface=br-lan vlan-id={{ vlan_users_id }} comment="BL: USERS"
+
+# --- Interface lists --------------------------------------------------
+/interface list
+add name=WAN comment="BL"
+add name=LAN comment="BL"
+add name=MGMT comment="BL"
+
+/interface list member
+add list=WAN interface=ether1-wan comment="BL"
+add list=LAN interface=vlan-mgmt comment="BL"
+add list=LAN interface=vlan-users comment="BL"
+add list=MGMT interface=vlan-mgmt comment="BL"
+
+# --- Adresacja / routing / DHCP / DNS ---------------------------------
+# WAN statyczny zamiast klienta DHCP: reset przed każdym scenariuszem
+# mógłby przydzielić inny adres, a nieaktualny wan_address w inwentarzu
+# po cichu wyłącza atrybucję L2, przy coverage nadal równym full.
+# Klient DHCP na WAN usuwany jawnie: obraz CHR może go mieć mimo resetu
+# no-defaults (lab 2026-10-30: R1 i R2). Drugi, dynamiczny adres WAN po cichu
+# psuje atrybucję L2 po wan_address (przypadek R2 .249, 2026-10-27).
+:do { /ip dhcp-client remove [find] } on-error={}
+
+/ip address
+add address={{ wan_address }}/{{ wan_prefix_len }} interface=ether1-wan comment="BL: WAN static"
+add address={{ mgmt_ip }}/{{ mgmt_prefix_len }} interface=vlan-mgmt comment="BL"
+add address={{ users_ip }}/{{ users_prefix_len }} interface=vlan-users comment="BL"
+
+/ip route
+add dst-address=0.0.0.0/0 gateway={{ wan_gateway }} comment="BL: default via ISP"
+
+/ip pool
+add name=pool-users ranges={{ users_pool_start }}-{{ users_pool_end }} comment="BL"
+
+/ip dhcp-server
+# [v6] /ip dhcp-server nie ma właściwości comment ("expected end of command", 2026-10-30)
+add name=dhcp-users interface=vlan-users address-pool=pool-users lease-time=1h disabled=no
+
+/ip dhcp-server network
+add address={{ users_net }} gateway={{ users_ip }} dns-server={{ users_ip }} comment="BL"
+
+/ip dns set allow-remote-requests=yes servers={{ dns_servers }}
+
+# --- Firewall: INPUT --------------------------------------------------
+/ip firewall filter
+add chain=input action=accept connection-state=established,related,untracked comment="BL: in est/rel"
+add chain=input action=drop connection-state=invalid comment="BL: in invalid"
+add chain=input action=accept protocol=icmp comment="BL: in icmp"
+add chain=input action=accept in-interface-list=MGMT src-address={{ mgmt_net }} protocol=tcp dst-port=22,8291 comment="BL: in mgmt ssh/winbox"
+add chain=input action=accept in-interface-list=MGMT src-address={{ mgmt_net }} protocol=tcp dst-port=8729 comment="BL: in mgmt api-ssl"
+add chain=input action=accept in-interface=vlan-users protocol=udp dst-port=53,67 comment="BL: in users dns/dhcp"
+add chain=input action=accept in-interface=vlan-users protocol=tcp dst-port=53 comment="BL: in users dns tcp"
+add chain=input action=drop log=yes log-prefix="BL-IN-DROP" comment="BL: in drop all"
+
+# --- Firewall: FORWARD ------------------------------------------------
+# Bez fasttrack: każde połączenie przechodzi przez reguły i tablicę
+# połączeń w ten sam sposób (spójny L1). Mirror na S2 widzi ruch
+# niezależnie od fasttrack, więc nie jest to warunek widoczności L2.
+add chain=forward action=accept connection-state=established,related,untracked comment="BL: fwd est/rel"
+add chain=forward action=drop connection-state=invalid comment="BL: fwd invalid"
+add chain=forward action=accept in-interface=vlan-users out-interface-list=WAN comment="BL: users -> WAN"
+add chain=forward action=accept in-interface=vlan-mgmt out-interface-list=WAN comment="BL: mgmt -> WAN (agent: git, TI)"
+add chain=forward action=drop log=yes log-prefix="BL-FWD-DROP" comment="BL: fwd drop all"
+
+/ip firewall nat
+add chain=srcnat out-interface-list=WAN action=masquerade comment="BL: masq"
+
+# --- Certyfikat api-ssl -----------------------------------------------
+# Stała para wgrywana przez harness (CN = adres MGMT routera).
+# Generowanie CA w baseline dawało nowy klucz po każdym resecie, czyli
+# przed każdym scenariuszem - agent i harness nie mogłyby przypiąć certyfikatu.
+/certificate
+import file-name=bl-api.crt passphrase=""
+import file-name=bl-api.key passphrase="{{ ros(bl_api_key_pass) }}"
+
+# --- Usługi -----------------------------------------------------------
+/ip service
+set telnet disabled=yes
+set ftp disabled=yes
+set www disabled=yes
+set www-ssl disabled=yes
+set api disabled=yes
+# [v6] tls-version na /ip service nie we wszystkich gałęziach 6.x - pominięte
+set api-ssl disabled=no certificate=[/certificate get [/certificate find where common-name="{{ mgmt_ip }}"] name] address={{ mgmt_net }}
+set ssh disabled=no address={{ mgmt_net }}
+set winbox disabled=no address={{ mgmt_net }}
+
+/ip ssh set strong-crypto=yes
+
+# --- Ograniczenie powierzchni L2 / zbędnych usług ---------------------
+/ip neighbor discovery-settings set discover-interface-list=MGMT
+/tool mac-server set allowed-interface-list=MGMT
+/tool mac-server mac-winbox set allowed-interface-list=MGMT
+/tool mac-server ping set enabled=no
+/tool bandwidth-server set enabled=no
+/tool romon set enabled=no
+/ip proxy set enabled=no
+/ip socks set enabled=no
+/ip upnp set enabled=no
+/ip cloud set ddns-enabled=no update-time=no
+:do { /ip smb set enabled=no } on-error={ :log warning "BL-WARN: /ip smb set enabled=no nieudane" }
+
+# --- Zdalny syslog do Monitor Node ------------------------------------
+# Źródło warstwy L1: wiadomości nadaje router, więc przejęte urządzenie
+# może je wstrzymać lub sfałszować (ADR-003). Zysk: wpisy już wysłane
+# nie znikają razem z lokalnym logiem routera.
+/system logging action
+# Nazwa akcji: wyłącznie litery i cyfry (v7: "action name can contain only
+# letters and numbers", 2026-10-30) — ta sama nazwa w v6 dla spójności.
+add name=blremote target=remote remote={{ monitor_ip }} remote-port=514 bsd-syslog=yes
+
+/system logging
+add topics=info action=blremote
+add topics=warning action=blremote
+add topics=error action=blremote
+add topics=critical action=blremote
+add topics=account action=blremote
+
+# --- Użytkownicy ------------------------------------------------------
+# ansible    : test-harness (SSH/SCP + API): wgrywanie baseline, scenariusze
+# monitor    : agent, zbiórka L1, wyłącznie odczyt. 'sensitive' pozwala
+#              liczyć skrót wartości tajnych (ADR-005, R6); surowe
+#              wartości nie opuszczają węzła monitorującego
+# remediate  : agent, krok akcji (R8). 'policy' potrzebne do usunięcia
+#              konta dodanego przez przeciwnika
+# breakglass : awaryjny full, hasło wyłącznie w vault, logowanie z MGMT
+/user group
+add name=bl-ansible policy=local,ssh,ftp,reboot,read,write,policy,test,password,sensitive,api comment="BL"
+add name=bl-monitor policy=ssh,read,api,test,sensitive comment="BL"
+add name=bl-remediate policy=read,write,policy,api,test comment="BL"
+
+/user
+add name=ansible group=bl-ansible password="{{ ros(bl_ansible_pw) }}" address={{ mgmt_net }} comment="BL"
+add name=monitor group=bl-monitor password="{{ ros(bl_monitor_pw) }}" address={{ monitor_ip }}/32 comment="BL"
+add name=remediate group=bl-remediate password="{{ ros(bl_remediate_pw) }}" address={{ monitor_ip }}/32 comment="BL"
+add name=breakglass group=full password="{{ ros(bl_breakglass_pw) }}" address={{ mgmt_net }} comment="BL"
+
+# [v6] tylko klucze RSA (ed25519 nieobsługiwane)
+/user ssh-keys
+import public-key-file=ansible_rsa.pub user=ansible
+import public-key-file=monitor_rsa.pub user=monitor
+
+# admin wyłączany dopiero gdy pozostali użytkownicy już istnieją
+/user set [find name=admin] disabled=yes
+
+# --- Włączenie VLAN filtering -----------------------------------------
+/interface bridge set br-lan vlan-filtering=yes frame-types=admit-only-vlan-tagged
+
+# --- Sprzątanie -------------------------------------------------------
+# Wyrenderowany baseline zawiera hasła, a pliki przetrwałyby kolejne resety.
+:do { /file remove [find where name="bl-api.crt" or name="bl-api.key" or name="ansible_rsa.pub" or name="monitor_rsa.pub"] } on-error={}
+:do { /file remove [find where name="baseline.rsc"] } on-error={}
+
+# --- Znacznik ukończenia ----------------------------------------------
+# Wymagany przez bramkę czystości harnessu. Brak znacznika z oczekiwanym
+# rev = baseline przerwany w połowie albo wgrana niewłaściwa wersja.
+:log info "BL: baseline applied router={{ router_identity }} rev={{ baseline_rev }}"

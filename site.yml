@@ -1,0 +1,11 @@
+# Instalacja (site) — jedno repozytorium na instalację, wiele routerów (decyzja 2026-11-01, ADR-002).
+schema_version: "1.0"
+site_id: lab
+description: "Lab GNS3 — jedna instalacja SOHO z dwoma routerami, wspólny węzeł monitorujący i mirror WAN"
+policy:
+  universal_version: v0.1.0-lab        # tag repozytorium soho-guard
+heartbeat:
+  interval_s: 1800                      # ADR-005 R9; obserwator alarmuje po 2 × interval_s
+routers:
+  - { router_id: r1, profile: ros7, path: routers/r1 }
+  - { router_id: r2, profile: ros6, path: routers/r2 }

@@ -1,0 +1,43 @@
+# host_vars/r2.yml - dane instalacji R2 dla szablonu baseline.
+# Źródłem prawdy jest routers/r2/inventory.yml; ten plik ma je tylko
+# odwzorowywać (najlepiej generowany z inwentarza), nie powielać.
+
+router_identity: R2-v6
+ros_major: 6
+ros_version_target: 6.49.19    # jedyna wersja v6; 6.49.18 wcześniej planowana — 6.49.19 to najniższa LT serii 6 na stronie pobierania (decyzja 2026-10-30)
+
+# Segmenty rozłączne między routerami (wspólny S1, oba routery pracują).
+vlan_mgmt_id: 120
+vlan_users_id: 220
+
+mgmt_ip: 10.100.2.1
+mgmt_prefix_len: 24
+mgmt_net: 10.100.2.0/24
+monitor_ip: 10.100.2.10          # eth0.120 węzła monitorującego
+
+users_ip: 10.200.2.1
+users_prefix_len: 24
+users_net: 10.200.2.0/24
+users_pool_start: 10.200.2.100
+users_pool_end: 10.200.2.199
+
+# WAN: segment VLAN20 realnego hAP ax2. Adres POZA pulą DHCP hAP.
+# Ta sama wartość musi trafić do inventory.yml jako wan_address (ADR-004).
+wan_address: 192.168.20.22
+wan_prefix_len: 24
+wan_gateway: 192.168.20.1
+# Segment WAN = VLAN20 realnego hAP ax2 (192.168.20.0/24, pula DHCP hAP .100-.250).
+# wan_address statyczny, poza pulą. wan_gateway = adres hAP na VLAN20 (potwierdzić).
+# wan_mac nie jest potrzebny w baseline - do inventory.yml z węzła GNS3.
+
+dns_servers: 1.1.1.1,9.9.9.9
+ntp_server: pool.ntp.org
+
+# baseline_rev ustawia harness przy renderowaniu (-e baseline_rev=<git sha>)
+
+# Wartości tajne - wyłącznie z Ansible Vault
+bl_ansible_pw: "{{ vault_r2_ansible_pw }}"
+bl_monitor_pw: "{{ vault_r2_monitor_pw }}"
+bl_remediate_pw: "{{ vault_r2_remediate_pw }}"
+bl_breakglass_pw: "{{ vault_r2_breakglass_pw }}"
+bl_api_key_pass: "{{ vault_r2_api_key_pass }}"

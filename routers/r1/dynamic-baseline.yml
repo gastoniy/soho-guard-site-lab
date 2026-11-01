@@ -1,0 +1,89 @@
+# =====================================================================
+# routers/r1/dynamic-baseline.yml
+# Ręczny baseline behawioralny fazy dynamicznej.
+#
+# Deklaruje "normalne" zachowanie instalacji w czasie. Odchylenie =
+# finding behawioralny (evidence.type: behavioral, ADR-005).
+#
+# WPROWADZANY RĘCZNIE przez administratora z okna uznanego za czyste
+# (obserwacja własna lub SIEM), przeglądany i commitowany przez
+# człowieka — tak jak baseline statyczny w fazie 0'. Tryb nasłuchu
+# automatycznego świadomie odrzucony.
+#
+# Zakres: wyłącznie wymiary ZMIENNE W CZASIE i LOKALNE. Stan
+# konfiguracji (SOCKS, porty, NAT, scheduler) obsługuje faza statyczna.
+# Progi uniwersalne (TI, DGA) należą do policy/dynamic/, nie tutaj.
+# =====================================================================
+
+schema_version: "1.0"
+site_id: lab
+router_id: r1
+
+# Proweniencja wartości — do audytu, skąd admin je wziął
+provenance:
+  observed_window: "DO_UZUPEŁNIENIA"     # okno uznane za czyste dla R1
+  source: manual            # manual | siem
+  approved_by: ihor
+  note: "SZKIC na wzór R2 — progi do kalibracji na oknie czystym R1 (R1 ma licencję P1, scenariusz wolumetryczny)"
+
+# --- 1. Przepustowość (decyzja A4) --------------------------------------
+# Anomalia = przekroczenie progu względnego, nie wartość bezwzględna.
+# Łapie: Mēris (DDoS), kryptomining. Mierzone na uplinku WAN routera.
+throughput:
+  wan_mbps_normal: 50           # deklarowany poziom "normalny"
+  alert_above_mbps: 50          # utrzymany ruch > próg = finding
+  sustained_seconds: 60         # ignoruj krótkie piki krótsze niż to
+  direction: both
+
+# --- 2. Egres routera jako hosta ----------------------------------------
+# Router sam z siebie gada z policzalnym zbiorem. Wszystko spoza = finding.
+# Łapie: C2 beacon, phone-home (ENDLESSDOORS), ruch do rogue DNS (FrostArmada).
+router_egress:
+  default: deny
+  allowed:
+    - { desc: "NTP",            host: "pool.ntp.org",       proto: udp, port: 123 }
+    - { desc: "DNS resolver 1", host: "1.1.1.1",            proto: udp, port: 53 }
+    - { desc: "DNS resolver 2", host: "9.9.9.9",            proto: udp, port: 53 }
+    - { desc: "Git instalacji", host: "github.com",         proto: tcp, port: 443 }
+    - { desc: "TI API",         host: "otx.alienvault.com", proto: tcp, port: 443 }
+
+# --- 3. Profil ruchu routera (zagregowany) ------------------------------
+# Mirror jest za NAT (ADR-004): w L2 cały ruch instalacji ma źródło = adres
+# WAN routera. Jednostką pomiaru jest więc ROUTER, nie host LAN — zgodnie z
+# modelem zagrożeń (kompromitacja routera; relay wychodzi z niego samego).
+# Nie whitelist destynacji (niewykonalne), tylko progi anomalii.
+router_traffic:
+  expected_protocols: [tcp, udp, icmp]
+  # fan-out: router do bardzo wielu destynacji ponad normę instalacji = relay/proxy.
+  # Łapie: Coinhive SOCKS4, Glupteba/TrickBot/Faceless, Mikro Typo.
+  # Próg zagregowany dla całej instalacji — kalibrować na oknie czystym.
+  max_distinct_dst_5min: 400
+  # połączenia długotrwałe (RITA long-conn) = tunel/proxy.
+  max_connection_duration_min: 120
+
+# --- 4. Beaconing (RITA) — allowlist lokalny ----------------------------
+# Detektor RITA jest uniwersalny (policy/dynamic/), ale lista legalnych
+# połączeń periodycznych jest lokalna. Łapie: C2 beacon, dynamic-IP beaconing.
+beaconing:
+  # Dopasowanie (decyzja 2026-10-30, implementacja w C1): cel po nazwie (FQDN z
+  # SNI/HTTP Host/dns.log) ORAZ proto/port. dst: "*" = dowolny cel na danym
+  # proto/port — dla usług, których cel w L2 to zmienny adres IP bez FQDN (NTP z puli).
+  # Ograniczenie: wpis "*" wyłącza wykrywanie beaconu na tym proto/porcie.
+  allowed_periodic:
+    - { src: router, dst: "*",                  proto: udp, port: 123, desc: "NTP (pula — adresy zmienne, brak FQDN w L2)" }
+    - { src: router, dst: "otx.alienvault.com", proto: tcp, port: 443, desc: "cykliczne odpytanie TI" }
+    - { src: router, dst: "github.com",         proto: tcp, port: 443, desc: "publikacja stanu/raportów — heartbeat co interval_s (ADR-005 R9)" }
+  # cel periodyczny spoza listy przy wyniku RITA powyżej progu policy = finding
+
+# --- 5. DNS — resolvery lokalne -----------------------------------------
+# Lista oczekiwanych resolverów jest lokalna; detekcja DGA uniwersalna.
+# Łapie: DNS hijacking (FrostArmada).
+dns:
+  allowed_resolvers: ["1.1.1.1", "9.9.9.9"]
+  alert_on_other_resolver: true
+
+# --- 6. Reputacja (L3/TI) — odwołanie do polityki uniwersalnej -----------
+# Progi i werdykty definiuje policy/dynamic/; tu tylko wskazanie dostawców
+# aktywnych dla tej instalacji (gdyby część wymagała klucza API).
+ti:
+  providers: [otx, abuseipdb]

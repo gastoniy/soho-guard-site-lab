@@ -1,0 +1,34 @@
+name: validate
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/soho-guard
+          ref: main            # docelowo: tag z site.yml (policy.universal_version)
+          path: soho-guard
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r soho-guard/requirements.txt
+      - name: Sekrety w .rsc
+        run: git ls-files '*.rsc' '*.j2' | xargs -r python3 soho-guard/tools/check_rsc_secrets.py
+      - name: Raporty i stan agenta
+        run: |
+          shopt -s globstar nullglob
+          r=(reports/*/**/*.json); s=(state/*.json)
+          [ ${#r[@]} -eq 0 ] || python3 soho-guard/tools/validate_report.py report "${r[@]}"
+          [ ${#s[@]} -eq 0 ] || python3 soho-guard/tools/validate_report.py state "${s[@]}"
+  gitleaks:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: gitleaks/gitleaks-action@v2
+        env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }

@@ -1,0 +1,21 @@
+addressing:
+  mgmt_net: 10.100.1.0/24
+  wan_address: 192.168.20.21/24
+  wan_mac: 0C:0F:E0:06:00:00
+dynamic_baseline: routers/r1/dynamic-baseline.yml
+local_policy: []
+onboarding:
+  firmware_reported: 7.20.8 (long-term)
+  generated_at: '2026-11-01T17:08:41Z'
+  identity_reported: R1-v7
+  policy_rules_not_evaluated: 0
+  policy_violations_at_adoption: 0
+  review_status: pending
+  verified_against_policy: false
+  wan_interface_candidate: ether1-wan
+policy:
+  universal_version: v0.1.0-lab
+profile: ros7
+router_id: r1
+schema_version: '1.0'
+site_id: lab

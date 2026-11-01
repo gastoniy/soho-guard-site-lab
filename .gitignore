@@ -1,0 +1,8 @@
+*.key
+*.pem
+*_rsa
+id_*
+vault*.yml
+*.rendered.rsc
+build/
+*.pcap

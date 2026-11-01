@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+  - repo: local
+    hooks:
+      - id: rsc-secrets
+        name: brak sekretów w plikach .rsc
+        entry: python3 ../soho-guard/tools/check_rsc_secrets.py
+        language: system
+        files: '\.(rsc|j2)$'

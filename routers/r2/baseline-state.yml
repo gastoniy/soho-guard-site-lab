@@ -1,0 +1,491 @@
+bandwidth_server:
+- allocate-udp-ports-from: 2000
+  authenticate: true
+  enabled: false
+  max-sessions: 100
+bridges:
+- ageing-time: 5m
+  arp: enabled
+  arp-timeout: auto
+  auto-mac: true
+  comment: BL
+  dhcp-snooping: false
+  disabled: false
+  ether-type: '0x8100'
+  fast-forward: true
+  forward-delay: 15s
+  frame-types: admit-only-vlan-tagged
+  igmp-snooping: false
+  ingress-filtering: false
+  l2mtu: 65535
+  mac-address: 0C:8D:0D:F8:00:01
+  max-message-age: 20s
+  mtu: auto
+  name: br-lan
+  priority: '0x8000'
+  protocol-mode: rstp
+  pvid: 1
+  transmit-hold-count: 6
+  vlan-filtering: true
+certificates:
+- akid: c15181126c3ba67d0f404dbaaa6f8b05cddbab63
+  common-name: 10.100.2.1
+  crl: false
+  days-valid: 825
+  digest-algorithm: sha256
+  expires-after: 117w3d18h30m21s
+  fingerprint: 771fdfcbbd053ddc253b2595862b1eedf50cf930d303d95cad4db66794a13650
+  invalid-after: feb/01/2029 12:39:33
+  invalid-before: oct/30/2026 12:39:33
+  issuer: CN=soho-guard-lab-CA
+  key-size: 2048
+  key-type: rsa
+  name: bl-api.crt_0
+  private-key: true
+  serial-number: 08A0FA9716F0EBDB5EC39C96B7D4662FB9F09CC1
+  skid: f5174d274d852efd656c31e07ad8d0b8f96b283c
+  subject-alt-name: IP:10.100.2.1
+  trusted: true
+cloud:
+- ddns-enabled: false
+  ddns-update-interval: none
+  update-time: false
+dhcp_clients:
+- add-default-route: true
+  default-route-distance: 1
+  dhcp-options: hostname,clientid
+  disabled: true
+  interface: ether1-wan
+  use-peer-dns: true
+  use-peer-ntp: true
+dns:
+- allow-remote-requests: true
+  cache-max-ttl: 1w
+  cache-size: 2048
+  dynamic-servers: ''
+  max-concurrent-queries: 100
+  max-concurrent-tcp-sessions: 20
+  max-udp-packet-size: 4096
+  query-server-timeout: 2s
+  query-total-timeout: 10s
+  servers: 1.1.1.1,9.9.9.9
+  use-doh-server: ''
+  verify-doh-cert: false
+firewall_address_lists: []
+firewall_filter:
+- action: accept
+  chain: forward
+  comment: 'BL: fwd est/rel'
+  connection-state: established,related,untracked
+- action: accept
+  chain: forward
+  comment: 'BL: mgmt -> WAN (agent: git, TI)'
+  in-interface: vlan-mgmt
+  out-interface-list: WAN
+- action: accept
+  chain: forward
+  comment: 'BL: users -> WAN'
+  in-interface: vlan-users
+  out-interface-list: WAN
+- action: accept
+  chain: input
+  comment: 'BL: in est/rel'
+  connection-state: established,related,untracked
+- action: accept
+  chain: input
+  comment: 'BL: in icmp'
+  protocol: icmp
+- action: accept
+  chain: input
+  comment: 'BL: in mgmt api-ssl'
+  dst-port: 8729
+  in-interface-list: MGMT
+  protocol: tcp
+  src-address: 10.100.2.0/24
+- action: accept
+  chain: input
+  comment: 'BL: in mgmt ssh/winbox'
+  dst-port: 22,8291
+  in-interface-list: MGMT
+  protocol: tcp
+  src-address: 10.100.2.0/24
+- action: accept
+  chain: input
+  comment: 'BL: in users dns tcp'
+  dst-port: 53
+  in-interface: vlan-users
+  protocol: tcp
+- action: accept
+  chain: input
+  comment: 'BL: in users dns/dhcp'
+  dst-port: 53,67
+  in-interface: vlan-users
+  protocol: udp
+- action: drop
+  chain: forward
+  comment: 'BL: fwd drop all'
+  log: true
+  log-prefix: BL-FWD-DROP
+- action: drop
+  chain: forward
+  comment: 'BL: fwd invalid'
+  connection-state: invalid
+- action: drop
+  chain: input
+  comment: 'BL: in drop all'
+  log: true
+  log-prefix: BL-IN-DROP
+- action: drop
+  chain: input
+  comment: 'BL: in invalid'
+  connection-state: invalid
+firewall_nat:
+- action: masquerade
+  chain: srcnat
+  comment: 'BL: masq'
+  out-interface-list: WAN
+identity:
+- name: R2-v6
+interfaces:
+- comment: BL
+  disabled: false
+  l2mtu: 65535
+  mac-address: 0C:8D:0D:F8:00:01
+  mtu: auto
+  name: br-lan
+  type: bridge
+- comment: 'BL: WAN (S2)'
+  default-name: ether1
+  disabled: false
+  mac-address: 0C:8D:0D:F8:00:00
+  mtu: 1500
+  name: ether1-wan
+  type: ether
+- comment: 'BL: trunk S1'
+  default-name: ether2
+  disabled: false
+  mac-address: 0C:8D:0D:F8:00:01
+  mtu: 1500
+  name: ether2-trunk
+  slave: true
+  type: ether
+- comment: 'BL: MGMT'
+  disabled: false
+  l2mtu: 65531
+  mac-address: 0C:8D:0D:F8:00:01
+  mtu: 1500
+  name: vlan-mgmt
+  type: vlan
+- comment: 'BL: USERS'
+  disabled: false
+  l2mtu: 65531
+  mac-address: 0C:8D:0D:F8:00:01
+  mtu: 1500
+  name: vlan-users
+  type: vlan
+ip_addresses:
+- actual-interface: ether1-wan
+  address: 192.168.20.22/24
+  comment: 'BL: WAN static'
+  disabled: false
+  interface: ether1-wan
+  network: 192.168.20.0
+- actual-interface: vlan-mgmt
+  address: 10.100.2.1/24
+  comment: BL
+  disabled: false
+  interface: vlan-mgmt
+  network: 10.100.2.0
+- actual-interface: vlan-users
+  address: 10.200.2.1/24
+  comment: BL
+  disabled: false
+  interface: vlan-users
+  network: 10.200.2.0
+l2tp_client: []
+l2tp_server: []
+logging:
+- action: blremote
+  default: false
+  disabled: false
+  prefix: ''
+  topics: account
+- action: blremote
+  default: false
+  disabled: false
+  prefix: ''
+  topics: critical
+- action: blremote
+  default: false
+  disabled: false
+  prefix: ''
+  topics: error
+- action: blremote
+  default: false
+  disabled: false
+  prefix: ''
+  topics: info
+- action: blremote
+  default: false
+  disabled: false
+  prefix: ''
+  topics: warning
+- action: echo
+  default: true
+  disabled: false
+  prefix: ''
+  topics: critical
+- action: memory
+  default: true
+  disabled: false
+  prefix: ''
+  topics: error
+- action: memory
+  default: true
+  disabled: false
+  prefix: ''
+  topics: info
+- action: memory
+  default: true
+  disabled: false
+  prefix: ''
+  topics: warning
+neighbor_discovery:
+- discover-interface-list: MGMT
+  lldp-med-net-policy-vlan: disabled
+  protocol: cdp,lldp,mndp
+ntp_client:
+- active-server: 78.9.233.189
+  enabled: true
+  last-adjustment: 1ms938us
+  last-update-before: 6m11s590ms
+  last-update-from: 78.9.233.189
+  mode: unicast
+  poll-interval: 15m
+  primary-ntp: 0.0.0.0
+  secondary-ntp: 0.0.0.0
+  server-dns-names: pool.ntp.org
+ovpn_client: []
+ovpn_server: []
+proxy:
+- always-from-cache: false
+  anonymous: false
+  cache-administrator: webmaster
+  cache-hit-dscp: 4
+  cache-on-disk: false
+  cache-path: web-proxy
+  enabled: false
+  max-cache-object-size: 2048
+  max-cache-size: unlimited
+  max-client-connections: 600
+  max-fresh-time: 3d
+  max-server-connections: 600
+  parent-proxy: '::'
+  parent-proxy-port: 0
+  port: 8080
+  serialize-connections: false
+  src-address: '::'
+routes:
+- active: true
+  comment: 'BL: default via ISP'
+  disabled: false
+  distance: 1
+  dst-address: 0.0.0.0/0
+  gateway: 192.168.20.1
+  gateway-status: 192.168.20.1 reachable via  ether1-wan
+  scope: 30
+  static: true
+  target-scope: 10
+- active: true
+  connect: true
+  disabled: false
+  distance: 0
+  dst-address: 10.100.2.0/24
+  gateway: vlan-mgmt
+  gateway-status: vlan-mgmt reachable
+  pref-src: 10.100.2.1
+  scope: 10
+- active: true
+  connect: true
+  disabled: false
+  distance: 0
+  dst-address: 10.200.2.0/24
+  gateway: vlan-users
+  gateway-status: vlan-users reachable
+  pref-src: 10.200.2.1
+  scope: 10
+- active: true
+  connect: true
+  disabled: false
+  distance: 0
+  dst-address: 192.168.20.0/24
+  gateway: ether1-wan
+  gateway-status: ether1-wan reachable
+  pref-src: 192.168.20.22
+  scope: 10
+scheduler: []
+scripts: []
+services:
+- address: ''
+  disabled: true
+  name: api
+  port: 8728
+- address: 10.100.2.0/24
+  certificate: bl-api.crt_0
+  disabled: false
+  name: api-ssl
+  port: 8729
+  tls-version: any
+- address: ''
+  disabled: true
+  name: ftp
+  port: 21
+- address: 10.100.2.0/24
+  disabled: false
+  name: ssh
+  port: 22
+- address: ''
+  disabled: true
+  name: telnet
+  port: 23
+- address: 10.100.2.0/24
+  disabled: false
+  name: winbox
+  port: 8291
+- address: ''
+  disabled: true
+  name: www
+  port: 80
+- address: ''
+  certificate: none
+  disabled: true
+  name: www-ssl
+  port: 443
+  tls-version: any
+smb:
+- allow-guests: true
+  comment: MikrotikSMB
+  domain: MSHOME
+  enabled: false
+  interfaces: all
+socks:
+- auth-method: none
+  connection-idle-timeout: 2m
+  enabled: false
+  max-connections: 200
+  port: 1080
+  version: 4
+ssh:
+- allow-none-crypto: false
+  always-allow-password-login: false
+  forwarding-enabled: false
+  host-key-size: 2048
+  strong-crypto: true
+ssh_keys:
+- DSA: false
+  RSA: true
+  bits: 4096
+  key-owner: ansible
+  user: ansible
+- DSA: false
+  RSA: true
+  bits: 4096
+  key-owner: monitor-r2
+  user: monitor
+system_resource:
+- architecture-name: x86_64
+  board-name: CHR
+  build-time: Jan/13/2026 10:15:22
+  cpu: QEMU
+  cpu-count: 1
+  cpu-frequency: 2096
+  platform: MikroTik
+  total-hdd-space: 66588672
+  total-memory: 234881024
+  version: 6.49.19 (long-term)
+upnp:
+- allow-disable-external-interface: false
+  enabled: false
+  show-dummy-rule: true
+user_groups:
+- comment: BL
+  name: bl-ansible
+  policy: local,ssh,ftp,reboot,read,write,policy,test,password,sensitive,api,!telnet,!winbox,!web,!sniff,!romon,!dude,!tikapp
+  skin: default
+- comment: BL
+  name: bl-monitor
+  policy: ssh,read,test,sensitive,api,!local,!telnet,!ftp,!reboot,!write,!policy,!winbox,!password,!web,!sniff,!romon,!dude,!tikapp
+  skin: default
+- comment: BL
+  name: bl-remediate
+  policy: read,write,policy,test,api,!local,!telnet,!ssh,!ftp,!reboot,!winbox,!password,!web,!sniff,!sensitive,!romon,!dude,!tikapp
+  skin: default
+- name: full
+  policy: local,telnet,ssh,ftp,reboot,read,write,policy,test,winbox,password,web,sniff,sensitive,api,romon,tikapp,!dude
+  skin: default
+- name: read
+  policy: local,telnet,ssh,reboot,read,test,winbox,password,web,sniff,sensitive,api,romon,tikapp,!ftp,!write,!policy,!dude
+  skin: default
+- name: write
+  policy: local,telnet,ssh,reboot,read,write,test,winbox,password,web,sniff,sensitive,api,romon,tikapp,!ftp,!policy,!dude
+  skin: default
+users:
+- address: ''
+  comment: system default user
+  disabled: true
+  expired: true
+  group: full
+  name: admin
+- address: 10.100.2.0/24
+  comment: BL
+  disabled: false
+  expired: false
+  group: bl-ansible
+  name: ansible
+- address: 10.100.2.0/24
+  comment: BL
+  disabled: false
+  expired: false
+  group: full
+  name: breakglass
+- address: 10.100.2.10/32
+  comment: BL
+  disabled: false
+  expired: false
+  group: bl-monitor
+  name: monitor
+- address: 10.100.2.10/32
+  comment: BL
+  disabled: false
+  expired: false
+  group: bl-remediate
+  name: remediate
+vlans:
+- arp: enabled
+  arp-timeout: auto
+  comment: 'BL: MGMT'
+  disabled: false
+  interface: br-lan
+  l2mtu: 65531
+  loop-protect: default
+  loop-protect-disable-time: 5m
+  loop-protect-send-interval: 5s
+  mac-address: 0C:8D:0D:F8:00:01
+  mtu: 1500
+  name: vlan-mgmt
+  use-service-tag: false
+  vlan-id: 120
+- arp: enabled
+  arp-timeout: auto
+  comment: 'BL: USERS'
+  disabled: false
+  interface: br-lan
+  l2mtu: 65531
+  loop-protect: default
+  loop-protect-disable-time: 5m
+  loop-protect-send-interval: 5s
+  mac-address: 0C:8D:0D:F8:00:01
+  mtu: 1500
+  name: vlan-users
+  use-service-tag: false
+  vlan-id: 220

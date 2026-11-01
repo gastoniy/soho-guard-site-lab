@@ -1,0 +1,6 @@
+count: 0
+findings: []
+not_evaluated: []
+note: 'Brak naruszeń sprawdzanych reguł statycznych polityki uniwersalnej. Zakres:
+  wyłącznie stan konfiguracji widoczny przez API — nie wyklucza kompromitacji ukrytej
+  przed self-reportem (weryfikuje ją faza dynamiczna).'
