@@ -1,0 +1,41 @@
+name: watcher
+# Dead man's switch (ADR-001, ADR-005 R9): alarm, gdy ostatni commit stanu routera
+# jest starszy niż 2 × interval_s z site.yml. Alarm = issue z etykietą "heartbeat".
+on:
+  schedule:
+    - cron: "*/15 * * * *"      # GitHub: best-effort, bez gwarancji punktualności
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  heartbeat:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Sprawdź wiek stanu każdego routera
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          interval=$(yq -r '.heartbeat.interval_s' site.yml)
+          limit=$(( 2 * interval )); now=$(date +%s); stale=""
+          for r in $(yq -r '.routers[].router_id' site.yml); do
+            f="state/$r.json"
+            if ! git log -1 --format=%ct -- "$f" >/dev/null 2>&1 || [ -z "$(git log -1 --format=%ct -- "$f")" ]; then
+              echo "$r: brak stanu (agent jeszcze nie wdrożony) — pomijam"; continue
+            fi
+            age=$(( now - $(git log -1 --format=%ct -- "$f") ))
+            echo "$r: ostatni commit stanu $age s temu (limit $limit s)"
+            [ "$age" -gt "$limit" ] && stale="$stale $r"
+          done
+          if [ -n "$stale" ]; then
+            title="Heartbeat: brak stanu z routerów:$stale"
+            gh label create heartbeat --color B60205 2>/dev/null || true
+            if [ -z "$(gh issue list --label heartbeat --state open --json number -q '.[].number')" ]; then
+              gh issue create --label heartbeat --title "$title" \
+                --body "Ostatni commit stanu starszy niż 2 × interval_s ($limit s). Możliwe: agent zatrzymany, brak egresu przez router, przejęcie WAN (ADR-003, zdolność 3)."
+            fi
+            exit 1
+          fi
