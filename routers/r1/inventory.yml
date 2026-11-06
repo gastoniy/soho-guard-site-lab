@@ -1,9 +1,11 @@
 addressing:
   mgmt_net: 10.100.1.0/24
+  mgmt_address: 10.100.1.1
+  agent_source: 10.100.1.10
   wan_address: 192.168.20.21/24
   wan_mac: 0C:0F:E0:06:00:00
 dynamic_baseline: routers/r1/dynamic-baseline.yml
-local_policy: []
+local_policy: routers/r1/local-policy.yml
 onboarding:
   firmware_reported: 7.20.8 (long-term)
   generated_at: '2026-11-01T17:08:41Z'
@@ -14,7 +16,7 @@ onboarding:
   verified_against_policy: false
   wan_interface_candidate: ether1-wan
 policy:
-  universal_version: v0.1.0-lab
+  universal_version_source: site.yml
 profile: ros7
 router_id: r1
 schema_version: '1.0'

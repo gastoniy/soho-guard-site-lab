@@ -38,7 +38,6 @@ certificates:
   crl: false
   days-valid: 825
   digest-algorithm: sha256
-  expires-after: 117w3d15h19m31s
   fingerprint: 043759f36d59f8b1cfffe87f4478b6226d2a838ae347da641ba71174314b13ce
   invalid-after: '2029-02-01 09:28:12'
   invalid-before: '2026-10-30 09:28:12'
@@ -295,12 +294,10 @@ ntp_client:
 - enabled: true
   mode: unicast
   servers: pool.ntp.org
-  synced-server: pool.ntp.org
-  synced-stratum: 2
-  system-offset: '9.948'
   vrf: main
 ovpn_client: []
 ovpn_server: []
+ppp_secrets: []
 proxy:
 - always-from-cache: false
   anonymous: false
@@ -396,7 +393,6 @@ services:
   vrf: main
 - disabled: false
   name: log
-  port: 34287
   proto: udp
 - disabled: false
   name: ntp

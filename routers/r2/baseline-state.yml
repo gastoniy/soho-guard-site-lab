@@ -33,7 +33,6 @@ certificates:
   crl: false
   days-valid: 825
   digest-algorithm: sha256
-  expires-after: 117w3d18h30m21s
   fingerprint: 771fdfcbbd053ddc253b2595862b1eedf50cf930d303d95cad4db66794a13650
   invalid-after: feb/01/2029 12:39:33
   invalid-before: oct/30/2026 12:39:33
@@ -255,18 +254,14 @@ neighbor_discovery:
   lldp-med-net-policy-vlan: disabled
   protocol: cdp,lldp,mndp
 ntp_client:
-- active-server: 78.9.233.189
-  enabled: true
-  last-adjustment: 1ms938us
-  last-update-before: 6m11s590ms
-  last-update-from: 78.9.233.189
+- enabled: true
   mode: unicast
-  poll-interval: 15m
   primary-ntp: 0.0.0.0
   secondary-ntp: 0.0.0.0
   server-dns-names: pool.ntp.org
 ovpn_client: []
 ovpn_server: []
+ppp_secrets: []
 proxy:
 - always-from-cache: false
   anonymous: false
