@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6S9ETKRSXEHGJTKM5K9CQ8X",
+    "run_seq": 1,
+    "trigger": "manual",
+    "started_at": "2026-11-06T20:40:30.072Z",
+    "finished_at": "2026-11-06T20:40:30.600Z",
+    "agent_version": "0.3.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.2.0-lab, wdrożone jest v0.3.0-lab.rc1"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.3.0-lab.rc1",
+    "universal_commit": "6358ab020bb1cf1973498ba7ac80000ef4baacd6",
+    "local_commit": "a799c79b08eaf9d5e8956e88cb21d3e61c02f915",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 480
+    },
+    "l2": {
+      "required": true,
+      "status": "unavailable",
+      "note": "warstwa L2 dochodzi w iteracji 4"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "inconclusive",
+    "coverage": "partial",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 0
+  },
+  "findings": [],
+  "resolved": [],
+  "actions": [],
+  "integrity": {
+    "report_seq": 1,
+    "previous_report_sha256": null
+  }
+}

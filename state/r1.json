@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "state",
+  "site_id": "lab",
+  "router_id": "r1",
+  "posture": "inconclusive",
+  "coverage": "partial",
+  "open_findings": [],
+  "last_run": {
+    "run_id": "01M6S9ETKRSXEHGJTKM5K9CQ8X",
+    "run_seq": 1,
+    "finished_at": "2026-11-06T20:40:30.600Z"
+  },
+  "last_report": {
+    "run_id": "01M6S9ETKRSXEHGJTKM5K9CQ8X",
+    "report_seq": 1,
+    "sha256": "240571a70de6d84edec3490435a37200ebec2f914c1620c9dbec61220eb5e22d"
+  },
+  "policy": {
+    "universal_version": "v0.3.0-lab.rc1"
+  },
+  "heartbeat": {
+    "at": "2026-11-06T20:40:30.600Z",
+    "interval_s": 1800
+  }
+}
