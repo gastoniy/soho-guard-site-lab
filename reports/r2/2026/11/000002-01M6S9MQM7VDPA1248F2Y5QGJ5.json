@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6S9MQM7VDPA1248F2Y5QGJ5",
+    "run_seq": 3,
+    "trigger": "manual",
+    "started_at": "2026-11-06T20:43:43.623Z",
+    "finished_at": "2026-11-06T20:43:44.078Z",
+    "agent_version": "0.3.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.2.0-lab, wdrożone jest v0.3.0-lab.rc1"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.3.0-lab.rc1",
+    "universal_commit": "6358ab020bb1cf1973498ba7ac80000ef4baacd6",
+    "local_commit": "a799c79b08eaf9d5e8956e88cb21d3e61c02f915",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 384
+    },
+    "l2": {
+      "required": true,
+      "status": "unavailable",
+      "note": "warstwa L2 dochodzi w iteracji 4"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "policy-violation",
+    "coverage": "partial",
+    "findings_total": 1,
+    "findings_new": 1,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:625ddaf2f1dd28493843e5770dab9f4d26d9f73a38495dc99d26293cc81784e5",
+      "rule": "policy.services.socks.disabled",
+      "rule_source": "universal",
+      "also_matched": [
+        "local.drift.socks"
+      ],
+      "phase": "static",
+      "severity": "critical",
+      "ioc": false,
+      "status": "new",
+      "first_seen_at": "2026-11-06T20:43:44.071Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/socks",
+        "expected": {
+          "enabled": "no"
+        },
+        "observed": {
+          "enabled": "yes"
+        },
+        "local_ref": "ev:01M6S9MQM7VDPA1248F2Y5QGJ5/l1"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [
+    {
+      "action_id": "A-01",
+      "fingerprint": "sha256:625ddaf2f1dd28493843e5770dab9f4d26d9f73a38495dc99d26293cc81784e5",
+      "type": "auto-remediate",
+      "status": "skipped",
+      "reason": "--no-remediate: remediacja wyłączona, planowane enabled=no",
+      "started_at": null,
+      "finished_at": null,
+      "external_ref": null,
+      "verification": null,
+      "local_ref": null
+    }
+  ],
+  "integrity": {
+    "report_seq": 2,
+    "previous_report_sha256": "961c722f405c14e92814ba058ddc09d4137e09df498c886f8c3daa363ef9d409"
+  }
+}
