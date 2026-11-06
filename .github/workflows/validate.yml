@@ -19,6 +19,8 @@ jobs:
       - run: pip install -r soho-guard/requirements.txt
       - name: Sekrety w .rsc
         run: git ls-files '*.rsc' '*.j2' | xargs -r python3 soho-guard/tools/check_rsc_secrets.py
+      - name: Polityka lokalna
+        run: python3 soho-guard/tools/policy_lint.py --local routers/*/local-policy.yml
       - name: Raporty i stan agenta
         run: |
           shopt -s globstar nullglob
