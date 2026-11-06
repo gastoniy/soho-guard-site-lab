@@ -1,0 +1,9 @@
+schema_version: "1.0"
+
+drift:
+  overrides:
+    - { resource: ppp_secrets, id: local.ppp.secrets, severity: medium }
+  ignore:
+    - resource: firewall_filter
+      attrs: [comment]
+      reason: "Komentarz nie zmienia działania reguły (scenariusz BEN-002)"
