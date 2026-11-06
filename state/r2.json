@@ -3,33 +3,24 @@
   "kind": "state",
   "site_id": "lab",
   "router_id": "r2",
-  "posture": "policy-violation",
+  "posture": "inconclusive",
   "coverage": "partial",
-  "open_findings": [
-    {
-      "fingerprint": "sha256:625ddaf2f1dd28493843e5770dab9f4d26d9f73a38495dc99d26293cc81784e5",
-      "rule": "policy.services.socks.disabled",
-      "rule_source": "universal",
-      "severity": "critical",
-      "compromise_indicator": false,
-      "first_seen_at": "2026-11-06T20:43:44.071Z"
-    }
-  ],
+  "open_findings": [],
   "last_run": {
-    "run_id": "01M6S9MQM7VDPA1248F2Y5QGJ5",
-    "run_seq": 3,
-    "finished_at": "2026-11-06T20:43:44.078Z"
+    "run_id": "01M6S9Q5N8N8HHE6559HA9KJ3E",
+    "run_seq": 4,
+    "finished_at": "2026-11-06T20:45:03.911Z"
   },
   "last_report": {
-    "run_id": "01M6S9MQM7VDPA1248F2Y5QGJ5",
-    "report_seq": 2,
-    "sha256": "711e42bdbfea6ae8b2ff4640b0e4f34b9a3774ff66ea776494d4418e913b7522"
+    "run_id": "01M6S9Q5N8N8HHE6559HA9KJ3E",
+    "report_seq": 3,
+    "sha256": "36075b55302d32f2da2a1a33a5f0b5e946eebe9c42f33d24f4c69cf889f04b8d"
   },
   "policy": {
     "universal_version": "v0.3.0-lab.rc1"
   },
   "heartbeat": {
-    "at": "2026-11-06T20:43:44.078Z",
+    "at": "2026-11-06T20:45:03.911Z",
     "interval_s": 1800
   }
 }
