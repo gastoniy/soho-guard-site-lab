@@ -27,6 +27,13 @@ jobs:
           r=(reports/*/**/*.json); s=(state/*.json)
           [ ${#r[@]} -eq 0 ] || python3 soho-guard/tools/validate_report.py report "${r[@]}"
           [ ${#s[@]} -eq 0 ] || python3 soho-guard/tools/validate_report.py state "${s[@]}"
+      - name: Łańcuch raportów (R7)
+        run: |
+          shopt -s globstar nullglob
+          for d in reports/*/; do
+            r=("$d"**/*.json)
+            [ ${#r[@]} -eq 0 ] || python3 soho-guard/tools/validate_report.py chain "$d"
+          done
   gitleaks:
     runs-on: ubuntu-24.04
     steps:
