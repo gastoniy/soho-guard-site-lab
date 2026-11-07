@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6VH9ZFZ0ZWHK3KY1DRV8TS5",
+    "run_seq": 4,
+    "trigger": "manual",
+    "started_at": "2026-11-07T17:36:08.703Z",
+    "finished_at": "2026-11-07T17:36:09.217Z",
+    "agent_version": "0.4.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.3.0-lab, wdrożone jest v0.4.0-lab.rc2"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.4.0-lab.rc2",
+    "universal_commit": "41844560ac90a7a1775af2619072a638ea7349c4",
+    "local_commit": "574d8e2e8026010a0317d68cc03551ff5a1c1381",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 443
+    },
+    "l2": {
+      "required": true,
+      "status": "unavailable",
+      "note": "warstwa L2 dochodzi w iteracji 4"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "inconclusive",
+    "coverage": "partial",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:7add19fd6ad5d355445fb222ebba1746c329e70011f871120269f11ef61886cd",
+      "rule": "local.drift.services",
+      "first_seen_at": "2026-11-07T17:35:35.365Z",
+      "resolved_at": "2026-11-07T17:36:09.213Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 3,
+    "previous_report_sha256": "6ddcf404e097a2d66aa769d44ab4c3a4b69b3bea93580345ee2c15fc88bbe466"
+  }
+}
