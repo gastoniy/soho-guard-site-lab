@@ -1,0 +1,50 @@
+name: agent-actions
+# Reakcje na publikację agenta: węzeł ma tylko klucz deploy, więc PR i issue powstają tutaj.
+# Wymaga ustawienia repo: Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests".
+on:
+  push:
+    branches: ["main", "test/**", "agent/**"]
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+jobs:
+  open-pr:
+    if: startsWith(github.ref_name, 'agent/')
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: PR z propozycją baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          base=$(git log -1 --format='%(trailers:key=Base,valueonly)')
+          [ -n "$base" ] || { echo "brak stopki Base w commicie"; exit 1; }
+          if [ -z "$(gh pr list --head "$GITHUB_REF_NAME" --state all --json number -q '.[].number')" ]; then
+            gh pr create --base "$base" --head "$GITHUB_REF_NAME" --title "$(git log -1 --format=%s)" \
+              --body "Agent wykrył drift względem baseline. Scalenie akceptuje zmianę. Jeśli zmiana jest nieuprawniona: zamknij PR i cofnij ją na routerze."
+          fi
+  alerts:
+    if: ${{ !startsWith(github.ref_name, 'agent/') }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 2 }
+      - name: Issue dla alertów z nowych raportów
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # Agent publikuje jednym commitem na push.
+          git diff-tree --no-commit-id --name-only --diff-filter=A -r HEAD -- reports | { grep '\.json$' || true; } > added.txt
+          while IFS= read -r file; do
+            jq -r '.target.router_id as $router | .findings as $found | .actions[]
+                   | select(.type == "alert" and .status == "succeeded") | .fingerprint as $fp
+                   | $found[] | select(.fingerprint == $fp) | [$router, .rule, .severity, .fingerprint] | @tsv' "$file" |
+            while IFS=$'\t' read -r router rule severity fingerprint; do
+              gh label create alert --color D93F0B 2>/dev/null || true
+              gh issue create --label alert --title "Alert $router: $rule" \
+                --body "Ważność: $severity. Fingerprint: $fingerprint. Raport: $file (gałąź $GITHUB_REF_NAME)."
+            done
+          done < added.txt
