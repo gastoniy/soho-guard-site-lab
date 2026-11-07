@@ -318,7 +318,17 @@ routes:
   gateway-status: ether1-wan reachable
   pref-src: 192.168.20.22
   scope: 10
-scheduler: []
+scheduler:
+- disabled: false
+  interval: 1d
+  name: test-drift
+  next-run: nov/08 19:34:25
+  on-event: :log info test
+  owner: breakglass
+  policy: ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon
+  run-count: 0
+  start-date: nov/07/2026
+  start-time: '19:34:25'
 scripts: []
 services:
 - address: ''
