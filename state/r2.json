@@ -3,24 +3,33 @@
   "kind": "state",
   "site_id": "lab",
   "router_id": "r2",
-  "posture": "inconclusive",
+  "posture": "compromise-suspected",
   "coverage": "partial",
-  "open_findings": [],
+  "open_findings": [
+    {
+      "fingerprint": "sha256:a7af05d243cdd56009f11c7edb04e532b09e9ae6692697e9ea716a06794f6c04",
+      "rule": "integrity.management-access-lost",
+      "rule_source": "universal",
+      "severity": "critical",
+      "compromise_indicator": true,
+      "first_seen_at": "2026-11-07T18:43:26.138Z"
+    }
+  ],
   "last_run": {
-    "run_id": "01M6VN11NX0R6ZSHT7AX8CKZYX",
-    "run_seq": 20,
-    "finished_at": "2026-11-07T18:41:10.801Z"
+    "run_id": "01M6VN566CT4Y5FX6Q48D83NPA",
+    "run_seq": 21,
+    "finished_at": "2026-11-07T18:43:26.152Z"
   },
   "last_report": {
-    "run_id": "01M6VN11NX0R6ZSHT7AX8CKZYX",
-    "report_seq": 14,
-    "sha256": "476ec7d3abce90674563a4754c93b063087cada5e7e4dd945da39ebbc87c9fca"
+    "run_id": "01M6VN566CT4Y5FX6Q48D83NPA",
+    "report_seq": 15,
+    "sha256": "d551ce80344b2307c55ba527184f3bf452398011a1b05e8e323ac899f769e7f7"
   },
   "policy": {
     "universal_version": "v0.4.0-lab.rc3"
   },
   "heartbeat": {
-    "at": "2026-11-07T18:41:10.801Z",
+    "at": "2026-11-07T18:43:26.152Z",
     "interval_s": 1800
   }
 }

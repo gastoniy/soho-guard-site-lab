@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6VN566CT4Y5FX6Q48D83NPA",
+    "run_seq": 21,
+    "trigger": "manual",
+    "started_at": "2026-11-07T18:43:26.028Z",
+    "finished_at": "2026-11-07T18:43:26.152Z",
+    "agent_version": "0.4.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.3.0-lab, wdrożone jest v0.4.0-lab.rc3"
+      },
+      {
+        "stage": "collect-l1",
+        "code": "l1.auth-rejected",
+        "message": "połączenie z 10.100.2.1: TrapError: invalid user name or password (6)"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": null,
+    "identity_reported": null,
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.4.0-lab.rc3",
+    "universal_commit": "7818ab80ec49c59e681b99a1a976f04e15289a07",
+    "local_commit": "574d8e2e8026010a0317d68cc03551ff5a1c1381",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "unavailable",
+      "duration_ms": 81
+    },
+    "l2": {
+      "required": true,
+      "status": "unavailable",
+      "note": "warstwa L2 dochodzi w iteracji 4"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "compromise-suspected",
+    "coverage": "partial",
+    "findings_total": 1,
+    "findings_new": 1,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:a7af05d243cdd56009f11c7edb04e532b09e9ae6692697e9ea716a06794f6c04",
+      "rule": "integrity.management-access-lost",
+      "rule_source": "universal",
+      "also_matched": [],
+      "phase": "static",
+      "severity": "critical",
+      "ioc": true,
+      "status": "new",
+      "first_seen_at": "2026-11-07T18:43:26.138Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "access",
+        "stage": "l1-auth",
+        "result": "rejected",
+        "local_ref": "ev:01M6VN566CT4Y5FX6Q48D83NPA/l1"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [
+    {
+      "action_id": "A-01",
+      "fingerprint": "sha256:a7af05d243cdd56009f11c7edb04e532b09e9ae6692697e9ea716a06794f6c04",
+      "type": "alert",
+      "status": "succeeded",
+      "reason": "R8: wskaźnik kompromitacji, wyłącznie alert",
+      "started_at": "2026-11-07T18:43:26.152Z",
+      "finished_at": "2026-11-07T18:43:26.152Z",
+      "external_ref": null,
+      "verification": null,
+      "local_ref": null
+    }
+  ],
+  "integrity": {
+    "report_seq": 15,
+    "previous_report_sha256": "476ec7d3abce90674563a4754c93b063087cada5e7e4dd945da39ebbc87c9fca"
+  }
+}
