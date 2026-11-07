@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6VRT7ZJN6HH3FAYAGYV6FEZ",
+    "run_seq": 9,
+    "trigger": "manual",
+    "started_at": "2026-11-07T19:47:21.714Z",
+    "finished_at": "2026-11-07T19:47:22.147Z",
+    "agent_version": "0.4.0",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.4.0-lab",
+    "universal_commit": "425ccae83b51603db412c412b4f7ae055e6afd18",
+    "local_commit": "3ae3c2f7371f13019782156eafb791ba63e6fda0",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 407
+    },
+    "l2": {
+      "required": true,
+      "status": "unavailable",
+      "note": "warstwa L2 dochodzi w iteracji 4"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "inconclusive",
+    "coverage": "partial",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 0
+  },
+  "findings": [],
+  "resolved": [],
+  "actions": [],
+  "integrity": {
+    "report_seq": 6,
+    "previous_report_sha256": "a09f8bd5dc100743e8811e74f0e31c8b5fee2f676f7dac98c49054d125c3d4df"
+  }
+}
