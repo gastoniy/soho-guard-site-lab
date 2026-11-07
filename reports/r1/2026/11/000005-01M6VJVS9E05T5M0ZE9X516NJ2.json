@@ -1,0 +1,168 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6VJVS9E05T5M0ZE9X516NJ2",
+    "run_seq": 7,
+    "trigger": "manual",
+    "started_at": "2026-11-07T18:03:20.750Z",
+    "finished_at": "2026-11-07T18:03:21.447Z",
+    "agent_version": "0.4.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.3.0-lab, wdrożone jest v0.4.0-lab.rc3"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.4.0-lab.rc3",
+    "universal_commit": "7818ab80ec49c59e681b99a1a976f04e15289a07",
+    "local_commit": "574d8e2e8026010a0317d68cc03551ff5a1c1381",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 376
+    },
+    "l2": {
+      "required": true,
+      "status": "unavailable",
+      "note": "warstwa L2 dochodzi w iteracji 4"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "policy-violation",
+    "coverage": "partial",
+    "findings_total": 2,
+    "findings_new": 2,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:fa87bca517c888bd276676698811fa275e80cc56eb0110fa9fd8ce550ba555f0",
+      "rule": "policy.mgmt.ssh.strong-crypto",
+      "rule_source": "universal",
+      "also_matched": [
+        "local.drift.ssh"
+      ],
+      "phase": "static",
+      "severity": "medium",
+      "ioc": false,
+      "status": "new",
+      "first_seen_at": "2026-11-07T18:03:21.185Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/ssh",
+        "expected": {
+          "strong-crypto": "yes"
+        },
+        "observed": {
+          "strong-crypto": "no"
+        },
+        "local_ref": "ev:01M6VJVS9E05T5M0ZE9X516NJ2/l1"
+      }
+    },
+    {
+      "fingerprint": "sha256:2cd53fba8995cae67879fb6ca55d554a4bed69458db46e103d884b0bbd3e078f",
+      "rule": "policy.services.telnet.disabled",
+      "rule_source": "universal",
+      "also_matched": [
+        "local.drift.services"
+      ],
+      "phase": "static",
+      "severity": "high",
+      "ioc": false,
+      "status": "new",
+      "first_seen_at": "2026-11-07T18:03:21.185Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/service",
+        "expected": {
+          "disabled": "yes"
+        },
+        "observed": {
+          "disabled": "no"
+        },
+        "local_ref": "ev:01M6VJVS9E05T5M0ZE9X516NJ2/l1"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [
+    {
+      "action_id": "A-01",
+      "fingerprint": "sha256:fa87bca517c888bd276676698811fa275e80cc56eb0110fa9fd8ce550ba555f0",
+      "type": "auto-remediate",
+      "status": "succeeded",
+      "reason": "rule_source=universal; mitigation_mode=auto; ustawiono strong-crypto=yes",
+      "started_at": "2026-11-07T18:03:21.338Z",
+      "finished_at": "2026-11-07T18:03:21.446Z",
+      "external_ref": null,
+      "verification": {
+        "performed": true,
+        "layers": [
+          "L1"
+        ],
+        "result": "resolved"
+      },
+      "local_ref": "ev:01M6VJVS9E05T5M0ZE9X516NJ2/remediation"
+    },
+    {
+      "action_id": "A-02",
+      "fingerprint": "sha256:2cd53fba8995cae67879fb6ca55d554a4bed69458db46e103d884b0bbd3e078f",
+      "type": "auto-remediate",
+      "status": "succeeded",
+      "reason": "rule_source=universal; mitigation_mode=auto; ustawiono disabled=yes",
+      "started_at": "2026-11-07T18:03:21.342Z",
+      "finished_at": "2026-11-07T18:03:21.446Z",
+      "external_ref": null,
+      "verification": {
+        "performed": true,
+        "layers": [
+          "L1"
+        ],
+        "result": "resolved"
+      },
+      "local_ref": "ev:01M6VJVS9E05T5M0ZE9X516NJ2/remediation"
+    }
+  ],
+  "integrity": {
+    "report_seq": 5,
+    "previous_report_sha256": "feeecdde488d139450aaeece6b75d9a401ad36d6ede8f721166a6e0003137e71"
+  }
+}
