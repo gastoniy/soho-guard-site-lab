@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6VN664NZE93R9AWF574BM5H",
+    "run_seq": 22,
+    "trigger": "manual",
+    "started_at": "2026-11-07T18:43:58.741Z",
+    "finished_at": "2026-11-07T18:43:59.233Z",
+    "agent_version": "0.4.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.3.0-lab, wdrożone jest v0.4.0-lab.rc3"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.4.0-lab.rc3",
+    "universal_commit": "7818ab80ec49c59e681b99a1a976f04e15289a07",
+    "local_commit": "574d8e2e8026010a0317d68cc03551ff5a1c1381",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 420
+    },
+    "l2": {
+      "required": true,
+      "status": "unavailable",
+      "note": "warstwa L2 dochodzi w iteracji 4"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "inconclusive",
+    "coverage": "partial",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:a7af05d243cdd56009f11c7edb04e532b09e9ae6692697e9ea716a06794f6c04",
+      "rule": "integrity.management-access-lost",
+      "first_seen_at": "2026-11-07T18:43:26.138Z",
+      "resolved_at": "2026-11-07T18:43:59.229Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 16,
+    "previous_report_sha256": "d551ce80344b2307c55ba527184f3bf452398011a1b05e8e323ac899f769e7f7"
+  }
+}
