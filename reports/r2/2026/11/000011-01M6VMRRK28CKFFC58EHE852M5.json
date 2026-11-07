@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6VMRRK28CKFFC58EHE852M5",
+    "run_seq": 15,
+    "trigger": "manual",
+    "started_at": "2026-11-07T18:36:38.882Z",
+    "finished_at": "2026-11-07T18:36:39.310Z",
+    "agent_version": "0.4.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.3.0-lab, wdrożone jest v0.4.0-lab.rc3"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.4.0-lab.rc3",
+    "universal_commit": "7818ab80ec49c59e681b99a1a976f04e15289a07",
+    "local_commit": "574d8e2e8026010a0317d68cc03551ff5a1c1381",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 398
+    },
+    "l2": {
+      "required": true,
+      "status": "unavailable",
+      "note": "warstwa L2 dochodzi w iteracji 4"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "inconclusive",
+    "coverage": "partial",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:04ce2662b68c9c56d4b04e180cc0c5cafbb0dd73adbb7fa512630dbcd5ddb79b",
+      "rule": "local.drift.scheduler",
+      "first_seen_at": "2026-11-07T18:34:34.948Z",
+      "resolved_at": "2026-11-07T18:36:39.306Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 11,
+    "previous_report_sha256": "80eaf6c450b76a9df7888a40e11b5c82006c6d299ed475d5e862efd49b187edc"
+  }
+}
