@@ -3,24 +3,33 @@
   "kind": "state",
   "site_id": "lab",
   "router_id": "r2",
-  "posture": "inconclusive",
+  "posture": "policy-violation",
   "coverage": "partial",
-  "open_findings": [],
+  "open_findings": [
+    {
+      "fingerprint": "sha256:41b31c76f547e77ea087c03e546e90fb8ca13d68ccd83ecbb356997335dc6404",
+      "rule": "policy.mgmt.winbox.not-public",
+      "rule_source": "universal",
+      "severity": "critical",
+      "compromise_indicator": false,
+      "first_seen_at": "2026-11-07T18:27:44.785Z"
+    }
+  ],
   "last_run": {
-    "run_id": "01M6VJWE71ZN2HT2TP1R2TSM9E",
-    "run_seq": 7,
-    "finished_at": "2026-11-07T18:03:42.841Z"
+    "run_id": "01M6VM8EHF3164WXH0DX6AD13Q",
+    "run_seq": 9,
+    "finished_at": "2026-11-07T18:27:44.799Z"
   },
   "last_report": {
-    "run_id": "01M6VJWE71ZN2HT2TP1R2TSM9E",
-    "report_seq": 4,
-    "sha256": "aa4a9bfc7bc4e8a6e08f9587bf453cadb5c822bf3552711c6b23fa0ef5859838"
+    "run_id": "01M6VM8EHF3164WXH0DX6AD13Q",
+    "report_seq": 5,
+    "sha256": "631fb668b08fae9cfc59e0fcd444f3d902c771a895ccd3812a3b535533938f65"
   },
   "policy": {
     "universal_version": "v0.4.0-lab.rc3"
   },
   "heartbeat": {
-    "at": "2026-11-07T18:03:42.841Z",
+    "at": "2026-11-07T18:27:44.799Z",
     "interval_s": 1800
   }
 }
