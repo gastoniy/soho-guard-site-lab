@@ -3,33 +3,24 @@
   "kind": "state",
   "site_id": "lab",
   "router_id": "r2",
-  "posture": "policy-violation",
+  "posture": "inconclusive",
   "coverage": "partial",
-  "open_findings": [
-    {
-      "fingerprint": "sha256:625ddaf2f1dd28493843e5770dab9f4d26d9f73a38495dc99d26293cc81784e5",
-      "rule": "policy.services.socks.disabled",
-      "rule_source": "universal",
-      "severity": "critical",
-      "compromise_indicator": false,
-      "first_seen_at": "2026-11-07T18:38:52.290Z"
-    }
-  ],
+  "open_findings": [],
   "last_run": {
-    "run_id": "01M6VMXJTNQ8TFCV51H47993NE",
-    "run_seq": 17,
-    "finished_at": "2026-11-07T18:39:17.189Z"
+    "run_id": "01M6VN11NX0R6ZSHT7AX8CKZYX",
+    "run_seq": 20,
+    "finished_at": "2026-11-07T18:41:10.801Z"
   },
   "last_report": {
-    "run_id": "01M6VMXJTNQ8TFCV51H47993NE",
-    "report_seq": 13,
-    "sha256": "c9e7ca48bc79fff977474c477298011db28784707631635c35fe172aa97de141"
+    "run_id": "01M6VN11NX0R6ZSHT7AX8CKZYX",
+    "report_seq": 14,
+    "sha256": "476ec7d3abce90674563a4754c93b063087cada5e7e4dd945da39ebbc87c9fca"
   },
   "policy": {
     "universal_version": "v0.4.0-lab.rc3"
   },
   "heartbeat": {
-    "at": "2026-11-07T18:39:17.189Z",
+    "at": "2026-11-07T18:41:10.801Z",
     "interval_s": 1800
   }
 }
