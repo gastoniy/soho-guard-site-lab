@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6VMG5GH1YA8CMK91QTFYVPW",
+    "run_seq": 12,
+    "trigger": "manual",
+    "started_at": "2026-11-07T18:31:57.201Z",
+    "finished_at": "2026-11-07T18:31:57.582Z",
+    "agent_version": "0.4.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.3.0-lab, wdrożone jest v0.4.0-lab.rc3"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.4.0-lab.rc3",
+    "universal_commit": "7818ab80ec49c59e681b99a1a976f04e15289a07",
+    "local_commit": "574d8e2e8026010a0317d68cc03551ff5a1c1381",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 308
+    },
+    "l2": {
+      "required": true,
+      "status": "unavailable",
+      "note": "warstwa L2 dochodzi w iteracji 4"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "policy-violation",
+    "coverage": "partial",
+    "findings_total": 1,
+    "findings_new": 0,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:625ddaf2f1dd28493843e5770dab9f4d26d9f73a38495dc99d26293cc81784e5",
+      "rule": "policy.services.socks.disabled",
+      "rule_source": "universal",
+      "also_matched": [
+        "local.drift.socks"
+      ],
+      "phase": "static",
+      "severity": "critical",
+      "ioc": false,
+      "status": "persisting",
+      "first_seen_at": "2026-11-07T18:31:36.986Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/socks",
+        "expected": {
+          "enabled": "no"
+        },
+        "observed": {
+          "enabled": "yes"
+        },
+        "local_ref": "ev:01M6VMG5GH1YA8CMK91QTFYVPW/l1"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [],
+  "integrity": {
+    "report_seq": 8,
+    "previous_report_sha256": "8f58f5b86e9e7e7ebc2e8b41d0687c093efba355b47e4d9cd9301f91b0762dca"
+  }
+}
