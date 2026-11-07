@@ -406,6 +406,10 @@ services:
   name: resolver
   port: 53
   proto: udp
+- disabled: false
+  name: socks
+  port: 1080
+  proto: tcp
 - address: 10.100.1.0/24
   disabled: false
   max-sessions: 20
