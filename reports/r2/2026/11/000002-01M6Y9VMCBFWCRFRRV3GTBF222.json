@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6Y9VMCBFWCRFRRV3GTBF222",
+    "run_seq": 2,
+    "trigger": "manual",
+    "started_at": "2026-11-08T19:23:41.835Z",
+    "finished_at": "2026-11-08T19:24:08.557Z",
+    "agent_version": "0.6.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.5.0-lab, wdrożone jest v0.6.0-lab.rc1"
+      },
+      {
+        "stage": "collect-l3",
+        "code": "l3.lookup-failed",
+        "message": "8.8.8.8: OTX: gaierror: [Errno -3] Temporary failure in name resolution"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.6.0-lab.rc1",
+    "universal_commit": "9d72c5e5830b89267de016cb439a4129f91333e7",
+    "local_commit": "d3578cf359934666e95349afb53e127907c0be39",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10380
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-08T18:23:52.301Z",
+        "to": "2026-11-08T19:23:52.301Z"
+      }
+    },
+    "l3": {
+      "required": false,
+      "status": "degraded",
+      "sources": [
+        "otx"
+      ],
+      "note": "8.8.8.8: OTX: gaierror: [Errno -3] Temporary failure in name resolution"
+    }
+  },
+  "verdict": {
+    "posture": "compromise-suspected",
+    "coverage": "full",
+    "findings_total": 1,
+    "findings_new": 1,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:b0fb9cf6e51d9cebcf0ac192dcdf5254bd5ff1fc152a2409dd9fec2140883728",
+      "rule": "policy.dynamic.rogue-resolver",
+      "rule_source": "universal",
+      "also_matched": [],
+      "phase": "dynamic",
+      "severity": "high",
+      "ioc": true,
+      "status": "new",
+      "first_seen_at": "2026-11-08T19:23:52.294Z",
+      "trust": {
+        "observed_by": [
+          "L2"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "behavioral",
+        "l2_observation": {
+          "destination": "8.8.8.8",
+          "dport": 53,
+          "proto": "udp",
+          "flow_count": 2,
+          "bytes_total": 0,
+          "window": {
+            "from": "2026-11-08T18:23:52.301Z",
+            "to": "2026-11-08T19:23:52.301Z"
+          },
+          "detector": "dns.resolver",
+          "score": null
+        },
+        "local_ref": "ev:01M6Y9VMCBFWCRFRRV3GTBF222/zeek"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [
+    {
+      "action_id": "A-01",
+      "fingerprint": "sha256:b0fb9cf6e51d9cebcf0ac192dcdf5254bd5ff1fc152a2409dd9fec2140883728",
+      "type": "alert",
+      "status": "succeeded",
+      "reason": "R8: wskaźnik kompromitacji lub rozbieżność warstw, wyłącznie alert",
+      "started_at": "2026-11-08T19:24:08.557Z",
+      "finished_at": "2026-11-08T19:24:08.557Z",
+      "external_ref": null,
+      "verification": null,
+      "local_ref": null
+    }
+  ],
+  "integrity": {
+    "report_seq": 2,
+    "previous_report_sha256": "eaea7d1a6b3742ce1d9a48f385b725dfa7ebe1cda188d1614aa27fde7e54d90a"
+  }
+}
