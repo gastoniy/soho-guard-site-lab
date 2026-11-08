@@ -21,6 +21,8 @@ jobs:
         run: git ls-files '*.rsc' '*.j2' | xargs -r python3 soho-guard/tools/check_rsc_secrets.py
       - name: Polityka lokalna
         run: python3 soho-guard/tools/policy_lint.py --local routers/*/local-policy.yml
+      - name: Baseline dynamiczny
+        run: python3 soho-guard/tools/policy_lint.py --dynamic routers/*/dynamic-baseline.yml
       - name: Raporty i stan agenta
         run: |
           shopt -s globstar nullglob
