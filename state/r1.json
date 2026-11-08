@@ -7,14 +7,6 @@
   "coverage": "partial",
   "open_findings": [
     {
-      "fingerprint": "sha256:d8ee3078869c4e69a74d2b01eb42337f8d404a520dd7c1b7b957ea411f8c1aa6",
-      "rule": "integrity.divergence.connections",
-      "rule_source": "universal",
-      "severity": "critical",
-      "compromise_indicator": true,
-      "first_seen_at": "2026-11-08T15:19:41.436Z"
-    },
-    {
       "fingerprint": "sha256:755cef262d03cee881e9a644f4ecd0a215063e6c55559d6ff851464430e2a10b",
       "rule": "policy.dynamic.dga",
       "rule_source": "universal",
@@ -24,20 +16,20 @@
     }
   ],
   "last_run": {
-    "run_id": "01M6XY2YWAPKPAXENCWXTHZSM5",
-    "run_seq": 14,
-    "finished_at": "2026-11-08T15:58:09.479Z"
+    "run_id": "01M6XZ1DQK4P9VJFEYHM0HQTRX",
+    "run_seq": 17,
+    "finished_at": "2026-11-08T16:14:47.778Z"
   },
   "last_report": {
-    "run_id": "01M6XW4BBAQMXXM980EMQXMR56",
-    "report_seq": 5,
-    "sha256": "61e6051e41800a8e2428cb5af71c25ff594cb12aaf6d7d47664ab5b9ce31659c"
+    "run_id": "01M6XZ1DQK4P9VJFEYHM0HQTRX",
+    "report_seq": 6,
+    "sha256": "530348cc7189ed81ffe09c9f5856e154fb9eeac2554d4175de79cafeaad7386c"
   },
   "policy": {
     "universal_version": "v0.5.0-lab.rc1"
   },
   "heartbeat": {
-    "at": "2026-11-08T15:58:09.479Z",
+    "at": "2026-11-08T16:14:47.778Z",
     "interval_s": 1800
   }
 }
