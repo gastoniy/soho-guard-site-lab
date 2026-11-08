@@ -1,0 +1,157 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6XW2JK1JJ9BV0D81QVJCRZP",
+    "run_seq": 7,
+    "trigger": "manual",
+    "started_at": "2026-11-08T15:22:49.313Z",
+    "finished_at": "2026-11-08T15:22:59.946Z",
+    "agent_version": "0.5.0",
+    "errors": [
+      {
+        "stage": "publish",
+        "code": "publish.sync-failed",
+        "message": "git fetch: przekroczono 30 s"
+      },
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.4.0-lab, wdrożone jest v0.5.0-lab.rc1"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.5.0-lab.rc1",
+    "universal_commit": "dbf11f24c29da47198d3e75b3ffb48c76e51ddc5",
+    "local_commit": "3ae3c2f7371f13019782156eafb791ba63e6fda0",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10535
+    },
+    "l2": {
+      "required": true,
+      "status": "degraded",
+      "sources": [
+        "zeek"
+      ],
+      "window": {
+        "from": "2026-11-08T14:22:59.939Z",
+        "to": "2026-11-08T15:22:59.939Z"
+      },
+      "note": "wykrywanie statystyczne (RITA) dochodzi w iteracji 5"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "compromise-suspected",
+    "coverage": "partial",
+    "findings_total": 2,
+    "findings_new": 0,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:d8ee3078869c4e69a74d2b01eb42337f8d404a520dd7c1b7b957ea411f8c1aa6",
+      "rule": "integrity.divergence.connections",
+      "rule_source": "universal",
+      "also_matched": [],
+      "phase": "dynamic",
+      "severity": "critical",
+      "ioc": true,
+      "status": "persisting",
+      "first_seen_at": "2026-11-08T15:19:41.436Z",
+      "trust": {
+        "observed_by": [
+          "L2"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [
+          "L1"
+        ],
+        "divergence": true
+      },
+      "evidence": {
+        "type": "behavioral",
+        "l1_claim": {
+          "query": "/ip/firewall/connection",
+          "destination_present": false
+        },
+        "l2_observation": {
+          "destination": "8.8.4.4",
+          "dport": null,
+          "proto": "icmp",
+          "flow_count": 1,
+          "bytes_total": 48916,
+          "window": {
+            "from": "2026-11-08T14:22:59.939Z",
+            "to": "2026-11-08T15:22:59.939Z"
+          },
+          "detector": "zeek.conn",
+          "score": null
+        },
+        "local_ref": "ev:01M6XW2JK1JJ9BV0D81QVJCRZP/zeek"
+      }
+    },
+    {
+      "fingerprint": "sha256:755cef262d03cee881e9a644f4ecd0a215063e6c55559d6ff851464430e2a10b",
+      "rule": "policy.dynamic.dga",
+      "rule_source": "universal",
+      "also_matched": [],
+      "phase": "dynamic",
+      "severity": "high",
+      "ioc": true,
+      "status": "persisting",
+      "first_seen_at": "2026-11-08T15:20:57.127Z",
+      "trust": {
+        "observed_by": [
+          "L2"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "behavioral",
+        "l2_observation": {
+          "destination": "1.1.1.1",
+          "dport": 53,
+          "proto": "udp",
+          "flow_count": 5,
+          "bytes_total": 0,
+          "window": {
+            "from": "2026-11-08T14:22:59.939Z",
+            "to": "2026-11-08T15:22:59.939Z"
+          },
+          "detector": "dns.dga",
+          "score": null
+        },
+        "local_ref": "ev:01M6XW2JK1JJ9BV0D81QVJCRZP/zeek"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [],
+  "integrity": {
+    "report_seq": 4,
+    "previous_report_sha256": "2db638c3d318889a3afc77f81245ee07e750e768973c724bbb3dffa0be47fead"
+  }
+}
