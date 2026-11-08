@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6XYPVM7KMBYFKNP1JYAB2EA",
+    "run_seq": 17,
+    "trigger": "manual",
+    "started_at": "2026-11-08T16:08:51.079Z",
+    "finished_at": "2026-11-08T16:09:01.545Z",
+    "agent_version": "0.5.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.4.0-lab, wdrożone jest v0.5.0-lab.rc1"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.5.0-lab.rc1",
+    "universal_commit": "dbf11f24c29da47198d3e75b3ffb48c76e51ddc5",
+    "local_commit": "3ae3c2f7371f13019782156eafb791ba63e6fda0",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10372
+    },
+    "l2": {
+      "required": true,
+      "status": "degraded",
+      "sources": [
+        "zeek"
+      ],
+      "window": {
+        "from": "2026-11-08T15:09:01.537Z",
+        "to": "2026-11-08T16:09:01.537Z"
+      },
+      "note": "wykrywanie statystyczne (RITA) dochodzi w iteracji 5"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "inconclusive",
+    "coverage": "partial",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:b0fb9cf6e51d9cebcf0ac192dcdf5254bd5ff1fc152a2409dd9fec2140883728",
+      "rule": "policy.dynamic.rogue-resolver",
+      "first_seen_at": "2026-11-08T15:07:32.569Z",
+      "resolved_at": "2026-11-08T16:09:01.531Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 9,
+    "previous_report_sha256": "d513b2bbe5e0b97421f22423a113134bd7e193b77d440f87917bc4212c826779"
+  }
+}
