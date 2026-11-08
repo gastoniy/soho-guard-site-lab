@@ -153,11 +153,18 @@ firewall_filter:
   chain: input
   comment: 'BL: in invalid'
   connection-state: invalid
+firewall_mangle: []
 firewall_nat:
 - action: masquerade
   chain: srcnat
   comment: 'BL: masq'
   out-interface-list: WAN
+firewall_raw:
+- action: notrack
+  chain: output
+  comment: test-iter4
+  dst-address: 8.8.4.4
+  protocol: icmp
 identity:
 - name: R1-v7
 interfaces:
