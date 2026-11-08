@@ -81,6 +81,7 @@ beaconing:
 dns:
   allowed_resolvers: ["1.1.1.1", "9.9.9.9"]
   alert_on_other_resolver: true
+  allowed_suffixes: []        # wyjątki DGA (np. CDN), dopasowanie po sufiksie
 
 # --- 6. Reputacja (L3/TI) — odwołanie do polityki uniwersalnej -----------
 # Progi i werdykty definiuje policy/dynamic/; tu tylko wskazanie dostawców
