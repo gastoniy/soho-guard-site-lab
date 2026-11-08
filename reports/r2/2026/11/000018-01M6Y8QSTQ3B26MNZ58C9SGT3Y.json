@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6Y8QSTQ3B26MNZ58C9SGT3Y",
+    "run_seq": 29,
+    "trigger": "manual",
+    "started_at": "2026-11-08T19:04:07.767Z",
+    "finished_at": "2026-11-08T19:04:18.297Z",
+    "agent_version": "0.5.0",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.5.0-lab",
+    "universal_commit": "a10079ac2c476cb386a9e8c6c9c3284d71d3933c",
+    "local_commit": "d3578cf359934666e95349afb53e127907c0be39",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10480
+    },
+    "l2": {
+      "required": true,
+      "status": "degraded",
+      "sources": [
+        "zeek"
+      ],
+      "window": {
+        "from": "2026-11-08T18:04:18.285Z",
+        "to": "2026-11-08T19:04:18.285Z"
+      },
+      "note": "wykrywanie statystyczne (RITA) dochodzi w iteracji 5"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "inconclusive",
+    "coverage": "partial",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:b0fb9cf6e51d9cebcf0ac192dcdf5254bd5ff1fc152a2409dd9fec2140883728",
+      "rule": "policy.dynamic.rogue-resolver",
+      "first_seen_at": "2026-11-08T17:08:51.565Z",
+      "resolved_at": "2026-11-08T19:04:18.278Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 18,
+    "previous_report_sha256": "3a4604536fb78eaee7a1d4ff1a63a09d9d911b9f6990932a7c6bc8ead8d8755a"
+  }
+}
