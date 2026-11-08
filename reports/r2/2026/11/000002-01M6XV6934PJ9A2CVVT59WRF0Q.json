@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6XV6934PJ9A2CVVT59WRF0Q",
+    "run_seq": 2,
+    "trigger": "manual",
+    "started_at": "2026-11-08T15:07:22.084Z",
+    "finished_at": "2026-11-08T15:07:32.602Z",
+    "agent_version": "0.5.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.4.0-lab, wdrożone jest v0.5.0-lab.rc1"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.5.0-lab.rc1",
+    "universal_commit": "dbf11f24c29da47198d3e75b3ffb48c76e51ddc5",
+    "local_commit": "3ae3c2f7371f13019782156eafb791ba63e6fda0",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10401
+    },
+    "l2": {
+      "required": true,
+      "status": "degraded",
+      "sources": [
+        "zeek"
+      ],
+      "window": {
+        "from": "2026-11-08T14:07:32.575Z",
+        "to": "2026-11-08T15:07:32.575Z"
+      },
+      "note": "wykrywanie statystyczne (RITA) dochodzi w iteracji 5"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "compromise-suspected",
+    "coverage": "partial",
+    "findings_total": 1,
+    "findings_new": 1,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:b0fb9cf6e51d9cebcf0ac192dcdf5254bd5ff1fc152a2409dd9fec2140883728",
+      "rule": "policy.dynamic.rogue-resolver",
+      "rule_source": "universal",
+      "also_matched": [],
+      "phase": "dynamic",
+      "severity": "high",
+      "ioc": true,
+      "status": "new",
+      "first_seen_at": "2026-11-08T15:07:32.569Z",
+      "trust": {
+        "observed_by": [
+          "L2"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "behavioral",
+        "l2_observation": {
+          "destination": "8.8.8.8",
+          "dport": 53,
+          "proto": "udp",
+          "flow_count": 2,
+          "bytes_total": 0,
+          "window": {
+            "from": "2026-11-08T14:07:32.575Z",
+            "to": "2026-11-08T15:07:32.575Z"
+          },
+          "detector": "dns.resolver",
+          "score": null
+        },
+        "local_ref": "ev:01M6XV6934PJ9A2CVVT59WRF0Q/zeek"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [
+    {
+      "action_id": "A-01",
+      "fingerprint": "sha256:b0fb9cf6e51d9cebcf0ac192dcdf5254bd5ff1fc152a2409dd9fec2140883728",
+      "type": "alert",
+      "status": "succeeded",
+      "reason": "R8: wskaźnik kompromitacji lub rozbieżność warstw, wyłącznie alert",
+      "started_at": "2026-11-08T15:07:32.602Z",
+      "finished_at": "2026-11-08T15:07:32.602Z",
+      "external_ref": null,
+      "verification": null,
+      "local_ref": null
+    }
+  ],
+  "integrity": {
+    "report_seq": 2,
+    "previous_report_sha256": "856259271751b18ab8dd95f881aee339b14a4e5dab7392ba4c8c55e6272202af"
+  }
+}
