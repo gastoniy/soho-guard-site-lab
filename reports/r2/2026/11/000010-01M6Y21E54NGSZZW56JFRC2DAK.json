@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6Y21E54NGSZZW56JFRC2DAK",
+    "run_seq": 20,
+    "trigger": "manual",
+    "started_at": "2026-11-08T17:07:03.460Z",
+    "finished_at": "2026-11-08T17:07:18.483Z",
+    "agent_version": "0.5.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.4.0-lab, wdrożone jest v0.5.0-lab.rc2"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.5.0-lab.rc2",
+    "universal_commit": "a23619b40303a101ae0c4cdd0aaea5689c61294d",
+    "local_commit": "fff630d6c2dafb1dad5dfe070f2b14daaa8bb76a",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10418
+    },
+    "l2": {
+      "required": true,
+      "status": "degraded",
+      "sources": [
+        "zeek"
+      ],
+      "window": {
+        "from": "2026-11-08T16:07:13.963Z",
+        "to": "2026-11-08T17:07:13.963Z"
+      },
+      "note": "wykrywanie statystyczne (RITA) dochodzi w iteracji 5"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "site-drift",
+    "coverage": "partial",
+    "findings_total": 1,
+    "findings_new": 1,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:0e43a239595451b25adf04a736cd29b3cd3665b55872fdcdfffb7f7a8e658669",
+      "rule": "local.drift.firewall-mangle",
+      "rule_source": "local",
+      "also_matched": [],
+      "phase": "static",
+      "severity": "medium",
+      "ioc": false,
+      "status": "new",
+      "first_seen_at": "2026-11-08T17:07:13.958Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/firewall/mangle",
+        "expected": null,
+        "observed": {
+          "chain": "prerouting",
+          "action": "passthrough",
+          "comment": "test-iter4"
+        },
+        "local_ref": "ev:01M6Y21E54NGSZZW56JFRC2DAK/l1"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [
+    {
+      "action_id": "A-01",
+      "fingerprint": "sha256:0e43a239595451b25adf04a736cd29b3cd3665b55872fdcdfffb7f7a8e658669",
+      "type": "open-pr",
+      "status": "succeeded",
+      "reason": "R8: drift, gałąź z propozycją baseline; scalenie PR akceptuje zmianę",
+      "started_at": "2026-11-08T17:07:13.991Z",
+      "finished_at": "2026-11-08T17:07:18.482Z",
+      "external_ref": "https://github.com/gastoniy/soho-guard-site-lab/compare/test/iter4...agent/r2/01M6Y21E54NGSZZW56JFRC2DAK?expand=1",
+      "verification": null,
+      "local_ref": "ev:01M6Y21E54NGSZZW56JFRC2DAK/baseline-proposal"
+    }
+  ],
+  "integrity": {
+    "report_seq": 10,
+    "previous_report_sha256": "0c6cc95e3726ecdde1eff6a9f46a3fce6a08e1793e97b3d88abb3b283546c4ab"
+  }
+}
