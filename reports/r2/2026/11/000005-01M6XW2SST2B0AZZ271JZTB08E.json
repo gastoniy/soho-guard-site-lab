@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6XW2SST2B0AZZ271JZTB08E",
+    "run_seq": 5,
+    "trigger": "manual",
+    "started_at": "2026-11-08T15:22:56.698Z",
+    "finished_at": "2026-11-08T15:23:07.153Z",
+    "agent_version": "0.5.0",
+    "errors": [
+      {
+        "stage": "publish",
+        "code": "publish.sync-failed",
+        "message": "git fetch: ssh: connect to host github.com port 22: Network is unreachable fatal: Could not read from remote repository. Please make sure you have the correct access rights and the repository exists."
+      },
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.4.0-lab, wdrożone jest v0.5.0-lab.rc1"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.5.0-lab.rc1",
+    "universal_commit": "dbf11f24c29da47198d3e75b3ffb48c76e51ddc5",
+    "local_commit": "3ae3c2f7371f13019782156eafb791ba63e6fda0",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10410
+    },
+    "l2": {
+      "required": true,
+      "status": "degraded",
+      "sources": [
+        "zeek"
+      ],
+      "window": {
+        "from": "2026-11-08T14:23:07.149Z",
+        "to": "2026-11-08T15:23:07.149Z"
+      },
+      "note": "wykrywanie statystyczne (RITA) dochodzi w iteracji 5"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "compromise-suspected",
+    "coverage": "partial",
+    "findings_total": 1,
+    "findings_new": 0,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:b0fb9cf6e51d9cebcf0ac192dcdf5254bd5ff1fc152a2409dd9fec2140883728",
+      "rule": "policy.dynamic.rogue-resolver",
+      "rule_source": "universal",
+      "also_matched": [],
+      "phase": "dynamic",
+      "severity": "high",
+      "ioc": true,
+      "status": "persisting",
+      "first_seen_at": "2026-11-08T15:07:32.569Z",
+      "trust": {
+        "observed_by": [
+          "L2"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "behavioral",
+        "l2_observation": {
+          "destination": "8.8.8.8",
+          "dport": 53,
+          "proto": "udp",
+          "flow_count": 2,
+          "bytes_total": 0,
+          "window": {
+            "from": "2026-11-08T14:23:07.149Z",
+            "to": "2026-11-08T15:23:07.149Z"
+          },
+          "detector": "dns.resolver",
+          "score": null
+        },
+        "local_ref": "ev:01M6XW2SST2B0AZZ271JZTB08E/zeek"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [],
+  "integrity": {
+    "report_seq": 5,
+    "previous_report_sha256": "bb8f77e3616cb8ea8ac2a5a2c76a6d0c8844c22a0457142bcb091d6116c61b0e"
+  }
+}
