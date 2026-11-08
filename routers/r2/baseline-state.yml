@@ -138,11 +138,13 @@ firewall_filter:
   chain: input
   comment: 'BL: in invalid'
   connection-state: invalid
+firewall_mangle: []
 firewall_nat:
 - action: masquerade
   chain: srcnat
   comment: 'BL: masq'
   out-interface-list: WAN
+firewall_raw: []
 identity:
 - name: R2-v6
 interfaces:
