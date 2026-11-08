@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M6Y22FKS5FASX8HVHKSZT436",
+    "run_seq": 21,
+    "trigger": "manual",
+    "started_at": "2026-11-08T17:07:37.721Z",
+    "finished_at": "2026-11-08T17:07:48.096Z",
+    "agent_version": "0.5.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.4.0-lab, wdrożone jest v0.5.0-lab.rc2"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.5.0-lab.rc2",
+    "universal_commit": "a23619b40303a101ae0c4cdd0aaea5689c61294d",
+    "local_commit": "fff630d6c2dafb1dad5dfe070f2b14daaa8bb76a",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10338
+    },
+    "l2": {
+      "required": true,
+      "status": "degraded",
+      "sources": [
+        "zeek"
+      ],
+      "window": {
+        "from": "2026-11-08T16:07:48.092Z",
+        "to": "2026-11-08T17:07:48.092Z"
+      },
+      "note": "wykrywanie statystyczne (RITA) dochodzi w iteracji 5"
+    },
+    "l3": {
+      "required": false,
+      "status": "unavailable",
+      "note": "warstwa L3 dochodzi w iteracji 5"
+    }
+  },
+  "verdict": {
+    "posture": "inconclusive",
+    "coverage": "partial",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:0e43a239595451b25adf04a736cd29b3cd3665b55872fdcdfffb7f7a8e658669",
+      "rule": "local.drift.firewall-mangle",
+      "first_seen_at": "2026-11-08T17:07:13.958Z",
+      "resolved_at": "2026-11-08T17:07:48.088Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 11,
+    "previous_report_sha256": "5e4d5ecdef09ef3a95d4350ff50279255b03746aa27ac6db779310a927d435c9"
+  }
+}
