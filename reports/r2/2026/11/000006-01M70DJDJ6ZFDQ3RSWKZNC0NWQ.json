@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M70DJDJ6ZFDQ3RSWKZNC0NWQ",
+    "run_seq": 6,
+    "trigger": "manual",
+    "started_at": "2026-11-09T15:07:03.110Z",
+    "finished_at": "2026-11-09T15:07:13.775Z",
+    "agent_version": "0.6.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.5.0-lab, wdrożone jest v0.6.0-lab.rc3"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.6.0-lab.rc3",
+    "universal_commit": "28351be26b50eb56f6dfe5c4b5cf62b77d754aae",
+    "local_commit": "82a394b6d8cc5edaa5abd145745bd6b72d245c47",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10462
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-09T14:07:13.662Z",
+        "to": "2026-11-09T15:07:13.662Z"
+      }
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:b0fb9cf6e51d9cebcf0ac192dcdf5254bd5ff1fc152a2409dd9fec2140883728",
+      "rule": "policy.dynamic.rogue-resolver",
+      "first_seen_at": "2026-11-08T19:23:52.294Z",
+      "resolved_at": "2026-11-09T15:07:13.656Z",
+      "resolved_by": "policy-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 6,
+    "previous_report_sha256": "3255df3d87a3c35b7f1302b2928a9307d7a49e962a952dc1fb68c90520a71df7"
+  }
+}
