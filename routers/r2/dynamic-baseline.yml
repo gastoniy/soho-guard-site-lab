@@ -73,6 +73,9 @@ beaconing:
     - { src: router, dst: "*",                  proto: udp, port: 123, desc: "NTP (pula — adresy zmienne, brak FQDN w L2)" }
     - { src: router, dst: "otx.alienvault.com", proto: tcp, port: 443, desc: "cykliczne odpytanie TI" }
     - { src: router, dst: "github.com",         proto: tcp, port: 22, desc: "publikacja stanu/raportów — heartbeat co interval_s (ADR-005 R9)" }
+    - { src: router, dst: "1.1.1.1",          proto: udp, port: 53, desc: "resolver instalacji — DNS routera i węzła (cykliczny)" }
+    - { src: router, dst: "9.9.9.9",          proto: udp, port: 53, desc: "resolver instalacji — DNS routera i węzła (cykliczny)" }
+    - { src: router, dst: "140.82.112.0/20",  proto: tcp, port: 22, desc: "GitHub git — heartbeat, gdy nazwy brak w dns.log" }
   # cel periodyczny spoza listy przy wyniku RITA powyżej progu policy = finding
 
 # --- 5. DNS — resolvery lokalne -----------------------------------------
