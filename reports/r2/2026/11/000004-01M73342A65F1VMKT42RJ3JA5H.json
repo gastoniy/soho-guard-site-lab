@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M73342A65F1VMKT42RJ3JA5H",
+    "run_seq": 4,
+    "trigger": "manual",
+    "started_at": "2026-11-10T16:02:10.374Z",
+    "finished_at": "2026-11-10T16:02:20.948Z",
+    "agent_version": "0.7.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.6.0-lab, wdrożone jest v0.7.0-lab.rc1"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.7.0-lab.rc1",
+    "universal_commit": "072d96b469e2ad39b5650663fdbe4152f68f2afc",
+    "local_commit": "2796272e4aa5fdd7994b3356b3e5079d4ede2bee",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10423
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-10T15:02:20.866Z",
+        "to": "2026-11-10T16:02:20.866Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (276 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 2
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:ec762ad84b915e4fb608681e85350dcd24d8d921658f41bccc8512b2a72adaa0",
+      "rule": "local.drift.dhcp-clients",
+      "first_seen_at": "2026-11-10T15:56:33.589Z",
+      "resolved_at": "2026-11-10T16:02:20.859Z",
+      "resolved_by": "external-change"
+    },
+    {
+      "fingerprint": "sha256:2f71b31b5323485e889cd39eb4b9f7223347670c7d887f9dcba624e19efe1c5b",
+      "rule": "local.drift.ip-addresses",
+      "first_seen_at": "2026-11-10T15:56:33.589Z",
+      "resolved_at": "2026-11-10T16:02:20.859Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 4,
+    "previous_report_sha256": "980ffd05f247dcf6d2f519bfcb92e4e7973ddc783708c4e671c3cca4481a8cce"
+  }
+}
