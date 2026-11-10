@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "state",
+  "site_id": "lab",
+  "router_id": "r1",
+  "posture": "compromise-suspected",
+  "coverage": "full",
+  "open_findings": [
+    {
+      "fingerprint": "sha256:2e48ab51a1684c5ffe016df05f535a9996b98bc705e51daf30bbc666c6e6eefb",
+      "rule": "policy.dynamic.beacon",
+      "rule_source": "universal",
+      "severity": "high",
+      "compromise_indicator": true,
+      "first_seen_at": "2026-11-10T16:25:16.290Z"
+    }
+  ],
+  "last_run": {
+    "run_id": "01M734E1FAJ7J95X0258D5K1WX",
+    "run_seq": 1,
+    "finished_at": "2026-11-10T16:25:16.729Z"
+  },
+  "last_report": {
+    "run_id": "01M734E1FAJ7J95X0258D5K1WX",
+    "report_seq": 1,
+    "sha256": "f425652a8c67b6fd2532416569e6292d5520d8b1d910da93f252c98d8f5e205c"
+  },
+  "policy": {
+    "universal_version": "v0.7.0-lab.rc1"
+  },
+  "heartbeat": {
+    "at": "2026-11-10T16:25:16.729Z",
+    "interval_s": 1800
+  }
+}
