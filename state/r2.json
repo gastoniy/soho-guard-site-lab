@@ -4,32 +4,40 @@
   "site_id": "lab",
   "router_id": "r2",
   "posture": "site-drift",
-  "coverage": "full",
+  "coverage": "partial",
   "open_findings": [
     {
-      "fingerprint": "sha256:1fb4d2b11d6c757c8c787dbee787cc7f5562456a2c75f22dd376061ed0e58ba1",
+      "fingerprint": "sha256:ec762ad84b915e4fb608681e85350dcd24d8d921658f41bccc8512b2a72adaa0",
       "rule": "local.drift.dhcp-clients",
       "rule_source": "local",
       "severity": "medium",
       "compromise_indicator": false,
-      "first_seen_at": "2026-11-10T15:44:34.646Z"
+      "first_seen_at": "2026-11-10T15:56:33.589Z"
+    },
+    {
+      "fingerprint": "sha256:2f71b31b5323485e889cd39eb4b9f7223347670c7d887f9dcba624e19efe1c5b",
+      "rule": "local.drift.ip-addresses",
+      "rule_source": "local",
+      "severity": "medium",
+      "compromise_indicator": false,
+      "first_seen_at": "2026-11-10T15:56:33.589Z"
     }
   ],
   "last_run": {
-    "run_id": "01M7323H35WBXYHVFQ0ZWAGXT4",
-    "run_seq": 2,
-    "finished_at": "2026-11-10T15:44:39.567Z"
+    "run_id": "01M732SF5TV6TXQVW1PE2MDHGV",
+    "run_seq": 3,
+    "finished_at": "2026-11-10T15:56:37.802Z"
   },
   "last_report": {
-    "run_id": "01M7323H35WBXYHVFQ0ZWAGXT4",
-    "report_seq": 2,
-    "sha256": "25a35f1e8cc892ca8f7a230df675536da14cae8c4eb43a20e32cfd58d8331c70"
+    "run_id": "01M732SF5TV6TXQVW1PE2MDHGV",
+    "report_seq": 3,
+    "sha256": "980ffd05f247dcf6d2f519bfcb92e4e7973ddc783708c4e671c3cca4481a8cce"
   },
   "policy": {
     "universal_version": "v0.7.0-lab.rc1"
   },
   "heartbeat": {
-    "at": "2026-11-10T15:44:39.567Z",
+    "at": "2026-11-10T15:56:37.802Z",
     "interval_s": 1800
   }
 }

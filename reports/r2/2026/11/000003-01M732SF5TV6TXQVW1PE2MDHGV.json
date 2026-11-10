@@ -1,0 +1,178 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M732SF5TV6TXQVW1PE2MDHGV",
+    "run_seq": 3,
+    "trigger": "manual",
+    "started_at": "2026-11-10T15:56:23.098Z",
+    "finished_at": "2026-11-10T15:56:37.802Z",
+    "agent_version": "0.7.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.6.0-lab, wdrożone jest v0.7.0-lab.rc1"
+      },
+      {
+        "stage": "collect-l2",
+        "code": "selfcheck.wan-mismatch",
+        "message": "klient DHCP na interfejsie WAN ether1-wan: adres może się zmienić"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.7.0-lab.rc1",
+    "universal_commit": "072d96b469e2ad39b5650663fdbe4152f68f2afc",
+    "local_commit": "2796272e4aa5fdd7994b3356b3e5079d4ede2bee",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10413
+    },
+    "l2": {
+      "required": true,
+      "status": "unavailable",
+      "note": "atrybucja niepewna: klient DHCP na interfejsie WAN ether1-wan: adres może się zmienić"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "site-drift",
+    "coverage": "partial",
+    "findings_total": 2,
+    "findings_new": 2,
+    "findings_resolved": 1
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:ec762ad84b915e4fb608681e85350dcd24d8d921658f41bccc8512b2a72adaa0",
+      "rule": "local.drift.dhcp-clients",
+      "rule_source": "local",
+      "also_matched": [],
+      "phase": "static",
+      "severity": "medium",
+      "ioc": false,
+      "status": "new",
+      "first_seen_at": "2026-11-10T15:56:33.589Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/dhcp-client",
+        "expected": null,
+        "observed": {
+          "interface": "ether1-wan",
+          "add-default-route": "no",
+          "use-peer-dns": "no",
+          "use-peer-ntp": "no",
+          "dhcp-options": "hostname,clientid",
+          "address": "192.168.20.249/24",
+          "gateway": "192.168.20.1",
+          "dhcp-server": "192.168.20.1",
+          "primary-dns": "192.168.20.1",
+          "secondary-dns": "8.8.8.8",
+          "disabled": "no",
+          "comment": "test-iter6"
+        },
+        "local_ref": "ev:01M732SF5TV6TXQVW1PE2MDHGV/l1"
+      }
+    },
+    {
+      "fingerprint": "sha256:2f71b31b5323485e889cd39eb4b9f7223347670c7d887f9dcba624e19efe1c5b",
+      "rule": "local.drift.ip-addresses",
+      "rule_source": "local",
+      "also_matched": [],
+      "phase": "static",
+      "severity": "medium",
+      "ioc": false,
+      "status": "new",
+      "first_seen_at": "2026-11-10T15:56:33.589Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/address",
+        "expected": null,
+        "observed": {
+          "address": "192.168.20.249/24",
+          "network": "192.168.20.0",
+          "interface": "ether1-wan",
+          "actual-interface": "ether1-wan",
+          "disabled": "no"
+        },
+        "local_ref": "ev:01M732SF5TV6TXQVW1PE2MDHGV/l1"
+      }
+    }
+  ],
+  "resolved": [
+    {
+      "fingerprint": "sha256:1fb4d2b11d6c757c8c787dbee787cc7f5562456a2c75f22dd376061ed0e58ba1",
+      "rule": "local.drift.dhcp-clients",
+      "first_seen_at": "2026-11-10T15:44:34.646Z",
+      "resolved_at": "2026-11-10T15:56:33.589Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "A-01",
+      "fingerprint": "sha256:ec762ad84b915e4fb608681e85350dcd24d8d921658f41bccc8512b2a72adaa0",
+      "type": "open-pr",
+      "status": "succeeded",
+      "reason": "R8: drift, gałąź z propozycją baseline; scalenie PR akceptuje zmianę",
+      "started_at": "2026-11-10T15:56:33.638Z",
+      "finished_at": "2026-11-10T15:56:37.802Z",
+      "external_ref": "https://github.com/gastoniy/soho-guard-site-lab/compare/test/iter6...agent/r2/01M732SF5TV6TXQVW1PE2MDHGV?expand=1",
+      "verification": null,
+      "local_ref": "ev:01M732SF5TV6TXQVW1PE2MDHGV/baseline-proposal"
+    },
+    {
+      "action_id": "A-02",
+      "fingerprint": "sha256:2f71b31b5323485e889cd39eb4b9f7223347670c7d887f9dcba624e19efe1c5b",
+      "type": "open-pr",
+      "status": "succeeded",
+      "reason": "R8: drift, gałąź z propozycją baseline; scalenie PR akceptuje zmianę",
+      "started_at": "2026-11-10T15:56:33.638Z",
+      "finished_at": "2026-11-10T15:56:37.802Z",
+      "external_ref": "https://github.com/gastoniy/soho-guard-site-lab/compare/test/iter6...agent/r2/01M732SF5TV6TXQVW1PE2MDHGV?expand=1",
+      "verification": null,
+      "local_ref": "ev:01M732SF5TV6TXQVW1PE2MDHGV/baseline-proposal"
+    }
+  ],
+  "integrity": {
+    "report_seq": 3,
+    "previous_report_sha256": "25a35f1e8cc892ca8f7a230df675536da14cae8c4eb43a20e32cfd58d8331c70"
+  }
+}
