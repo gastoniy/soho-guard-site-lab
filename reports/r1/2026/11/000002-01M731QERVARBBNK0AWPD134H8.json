@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M731QERVARBBNK0AWPD134H8",
+    "run_seq": 2,
+    "trigger": "manual",
+    "started_at": "2026-11-10T15:37:48.571Z",
+    "finished_at": "2026-11-10T15:37:59.242Z",
+    "agent_version": "0.7.0",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.6.0-lab, wdrożone jest v0.7.0-lab.rc1"
+      },
+      {
+        "stage": "collect-l2",
+        "code": "selfcheck.zeek-stale",
+        "message": "conn.log bez zapisu od 16 min"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.0-lab.rc1",
+    "universal_commit": "072d96b469e2ad39b5650663fdbe4152f68f2afc",
+    "local_commit": "2796272e4aa5fdd7994b3356b3e5079d4ede2bee",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10504
+    },
+    "l2": {
+      "required": true,
+      "status": "degraded",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-10T14:37:59.159Z",
+        "to": "2026-11-10T15:37:59.159Z"
+      },
+      "note": "conn.log bez zapisu od 16 min; nie oceniono: integrity.divergence.connections, policy.dynamic.dga, policy.dynamic.rogue-resolver; za mało ruchu TCP do oceny utraty pakietów (163 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "compromise-suspected",
+    "coverage": "partial",
+    "findings_total": 1,
+    "findings_new": 0,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:2e48ab51a1684c5ffe016df05f535a9996b98bc705e51daf30bbc666c6e6eefb",
+      "rule": "policy.dynamic.beacon",
+      "rule_source": "universal",
+      "also_matched": [],
+      "phase": "dynamic",
+      "severity": "high",
+      "ioc": true,
+      "status": "persisting",
+      "first_seen_at": "2026-11-10T15:16:54.543Z",
+      "trust": {
+        "observed_by": [
+          "L2"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "behavioral",
+        "l2_observation": {
+          "destination": "104.20.26.136",
+          "dport": 80,
+          "proto": "tcp",
+          "flow_count": 271,
+          "bytes_total": 470314,
+          "window": {
+            "from": "2026-11-09T14:59:03.000Z",
+            "to": "2026-11-10T14:59:03.000Z"
+          },
+          "detector": "rita.beacon",
+          "score": 0.734
+        },
+        "l3_corroboration": {
+          "provider": "otx",
+          "verdict": "benign",
+          "categories": []
+        },
+        "local_ref": "ev:01M731QERVARBBNK0AWPD134H8/zeek"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [],
+  "integrity": {
+    "report_seq": 2,
+    "previous_report_sha256": "201ac25eb26251578fd5d5c163b97b5dbf87c130b34329258402ad0d5464c61e"
+  }
+}
