@@ -50,6 +50,13 @@ cloud:
   ddns-update-interval: none
   update-time: false
 dhcp_clients:
+- add-default-route: false
+  comment: test-iter6
+  dhcp-options: hostname,clientid
+  disabled: true
+  interface: ether1-wan
+  use-peer-dns: false
+  use-peer-ntp: false
 - add-default-route: true
   default-route-distance: 1
   dhcp-options: hostname,clientid
