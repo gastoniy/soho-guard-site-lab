@@ -50,6 +50,18 @@ cloud:
   ddns-update-interval: none
   update-time: false
 dhcp_clients:
+- add-default-route: false
+  address: 192.168.20.249/24
+  comment: test-iter6
+  dhcp-options: hostname,clientid
+  dhcp-server: 192.168.20.1
+  disabled: false
+  gateway: 192.168.20.1
+  interface: ether1-wan
+  primary-dns: 192.168.20.1
+  secondary-dns: 8.8.8.8
+  use-peer-dns: false
+  use-peer-ntp: false
 - add-default-route: true
   default-route-distance: 1
   dhcp-options: hostname,clientid
@@ -188,6 +200,11 @@ ip_addresses:
 - actual-interface: ether1-wan
   address: 192.168.20.22/24
   comment: 'BL: WAN static'
+  disabled: false
+  interface: ether1-wan
+  network: 192.168.20.0
+- actual-interface: ether1-wan
+  address: 192.168.20.249/24
   disabled: false
   interface: ether1-wan
   network: 192.168.20.0
