@@ -3,13 +3,16 @@ name: watcher
 # jest starszy niż 2 × interval_s z site.yml. Alarm = issue z etykietą "heartbeat".
 on:
   schedule:
-    - cron: "*/15 * * * *"      # GitHub: best-effort, bez gwarancji punktualności
+    - cron: "*/15 * * * *"      # GitHub: best-effort, bez gwarancji punktualności; aktywny przy WATCHER_SCHEDULE=on
   workflow_dispatch:
 permissions:
   contents: read
   issues: write
 jobs:
   heartbeat:
+    # Lab nie działa 24/7 (decyzja 2026-11-11): harmonogram tylko przy zmiennej repo
+    # WATCHER_SCHEDULE=on, uruchomienie ręczne (workflow_dispatch) zawsze.
+    if: github.event_name == 'workflow_dispatch' || vars.WATCHER_SCHEDULE == 'on'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
