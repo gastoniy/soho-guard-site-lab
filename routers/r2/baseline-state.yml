@@ -49,14 +49,7 @@ cloud:
 - ddns-enabled: false
   ddns-update-interval: none
   update-time: false
-dhcp_clients:
-- add-default-route: true
-  default-route-distance: 1
-  dhcp-options: hostname,clientid
-  disabled: true
-  interface: ether1-wan
-  use-peer-dns: true
-  use-peer-ntp: true
+dhcp_clients: []
 dns:
 - allow-remote-requests: true
   cache-max-ttl: 1w
