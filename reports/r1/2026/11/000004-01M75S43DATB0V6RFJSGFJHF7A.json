@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M75S43DATB0V6RFJSGFJHF7A",
+    "run_seq": 258,
+    "trigger": "timer",
+    "started_at": "2026-11-11T17:05:09.034Z",
+    "finished_at": "2026-11-11T17:05:19.615Z",
+    "agent_version": "0.7.1",
+    "errors": [
+      {
+        "stage": "evaluate",
+        "code": "policy.version-mismatch",
+        "message": "site.yml wskazuje v0.7.0-lab, wdrożone jest v0.7.1-lab.rc1"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab.rc1",
+    "universal_commit": "def842cd7b85d81fe3eb75cdee98095b80bd9b2a",
+    "local_commit": "59b832d6cbd397c37a487e2970662b55a747281a",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10441
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-11T16:05:19.520Z",
+        "to": "2026-11-11T17:05:19.520Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (213 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 0
+  },
+  "findings": [],
+  "resolved": [],
+  "actions": [],
+  "integrity": {
+    "report_seq": 4,
+    "previous_report_sha256": "4f4e1d242f6fa40a35da4f31a4d5003d1a869e9c19ac3604bf46e251fc39e6b9"
+  }
+}
