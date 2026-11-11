@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M75E86H66S74FS1SRJA78FTT",
+    "run_seq": 1,
+    "trigger": "manual",
+    "started_at": "2026-11-11T13:55:08.966Z",
+    "finished_at": "2026-11-11T13:55:19.525Z",
+    "agent_version": "0.7.0",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.0-lab",
+    "universal_commit": "c399204a5e162be3a0a697eaba0ccefd162fb950",
+    "local_commit": "cb4ea61ae587c6b9291696deb2ff43094e048273",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10391
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-11T12:55:19.444Z",
+        "to": "2026-11-11T13:55:19.444Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (208 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 0
+  },
+  "findings": [],
+  "resolved": [],
+  "actions": [],
+  "integrity": {
+    "report_seq": 1,
+    "previous_report_sha256": null
+  }
+}
