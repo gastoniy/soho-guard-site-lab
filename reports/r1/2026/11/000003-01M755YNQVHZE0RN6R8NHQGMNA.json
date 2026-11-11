@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M755YNQVHZE0RN6R8NHQGMNA",
+    "run_seq": 229,
+    "trigger": "timer",
+    "started_at": "2026-11-11T11:30:08.251Z",
+    "finished_at": "2026-11-11T11:30:18.787Z",
+    "agent_version": "0.7.0",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.0-lab",
+    "universal_commit": "c399204a5e162be3a0a697eaba0ccefd162fb950",
+    "local_commit": "40bc3299afc9add3181ce28611c15b4d18ee2415",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10451
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-11T10:30:18.736Z",
+        "to": "2026-11-11T11:30:18.736Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (156 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 0
+  },
+  "findings": [],
+  "resolved": [],
+  "actions": [],
+  "integrity": {
+    "report_seq": 3,
+    "previous_report_sha256": "ec73b22b097942e89b4334e3dc069295dea2473cbc249bc87cce39e700ca039e"
+  }
+}
