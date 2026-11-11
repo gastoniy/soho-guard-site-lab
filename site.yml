@@ -3,7 +3,7 @@ schema_version: "1.0"
 site_id: lab
 description: "Lab GNS3 — jedna instalacja SOHO z dwoma routerami, wspólny węzeł monitorujący i mirror WAN"
 policy:
-  universal_version: v0.7.0-lab        # tag repozytorium soho-guard
+  universal_version: v0.7.1-lab        # tag repozytorium soho-guard
 heartbeat:
   interval_s: 1800                      # ADR-005 R9; obserwator alarmuje po 2 × interval_s
 routers:
