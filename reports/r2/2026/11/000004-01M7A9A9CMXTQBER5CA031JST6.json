@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7A9A9CMXTQBER5CA031JST6",
+    "run_seq": 55,
+    "trigger": "timer",
+    "started_at": "2026-11-13T11:05:06.708Z",
+    "finished_at": "2026-11-13T11:05:17.550Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "4b84ef631b5b151e0aa5078f74deaabf8d628972",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10696
+    },
+    "l2": {
+      "required": true,
+      "status": "degraded",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-13T10:05:17.455Z",
+        "to": "2026-11-13T11:05:17.455Z"
+      },
+      "note": "ostatni import RITA starszy niż 2 h; za mało ruchu TCP do oceny utraty pakietów (0 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "inconclusive",
+    "coverage": "partial",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 0
+  },
+  "findings": [],
+  "resolved": [],
+  "actions": [],
+  "integrity": {
+    "report_seq": 4,
+    "previous_report_sha256": "c1540b6ade6a7d4304ed252e3da2b4b5327368622b52256a0943e3de8f1cc7c9"
+  }
+}
