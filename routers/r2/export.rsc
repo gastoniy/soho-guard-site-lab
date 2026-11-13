@@ -1,4 +1,4 @@
-# nov/01/2026 18:09:21 by RouterOS 6.49.19
+# nov/13/2026 15:03:03 by RouterOS 6.49.19
 # software id = 
 #
 #
@@ -18,6 +18,7 @@
 /user group add comment=BL name=bl-ansible policy=local,ssh,ftp,reboot,read,write,policy,test,password,sensitive,api,!telnet,!winbox,!web,!sniff,!romon,!dude,!tikapp
 /user group add comment=BL name=bl-monitor policy=ssh,read,test,sensitive,api,!local,!telnet,!ftp,!reboot,!write,!policy,!winbox,!password,!web,!sniff,!romon,!dude,!tikapp
 /user group add comment=BL name=bl-remediate policy=read,write,policy,test,api,!local,!telnet,!ssh,!ftp,!reboot,!winbox,!password,!web,!sniff,!sensitive,!romon,!dude,!tikapp
+#error exporting /interface bridge calea
 /interface bridge port add bridge=br-lan comment=BL frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=ether2-trunk
 /ip neighbor discovery-settings set discover-interface-list=MGMT
 /interface bridge vlan add bridge=br-lan comment="BL: MGMT" tagged=br-lan,ether2-trunk vlan-ids=120
@@ -29,9 +30,9 @@
 /ip address add address=192.168.20.22/24 comment="BL: WAN static" interface=ether1-wan network=192.168.20.0
 /ip address add address=10.100.2.1/24 comment=BL interface=vlan-mgmt network=10.100.2.0
 /ip address add address=10.200.2.1/24 comment=BL interface=vlan-users network=10.200.2.0
-/ip dhcp-client add interface=ether1-wan
 /ip dhcp-server network add address=10.200.2.0/24 comment=BL dns-server=10.200.2.1 gateway=10.200.2.1
 /ip dns set allow-remote-requests=yes servers=1.1.1.1,9.9.9.9
+#error exporting /ip firewall calea
 /ip firewall filter add action=accept chain=input comment="BL: in est/rel" connection-state=established,related,untracked
 /ip firewall filter add action=drop chain=input comment="BL: in invalid" connection-state=invalid
 /ip firewall filter add action=accept chain=input comment="BL: in icmp" protocol=icmp
