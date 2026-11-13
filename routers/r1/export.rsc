@@ -1,4 +1,4 @@
-# 2026-11-01 18:08:57 by RouterOS 7.20.8
+# 2026-11-13 15:02:03 by RouterOS 7.20.8
 # system id = UGqD3vYvf2A
 #
 /interface bridge add comment=BL frame-types=admit-only-vlan-tagged name=br-lan vlan-filtering=yes
@@ -28,7 +28,6 @@
 /ip address add address=192.168.20.21/24 comment="BL: WAN static" interface=ether1-wan network=192.168.20.0
 /ip address add address=10.100.1.1/24 comment=BL interface=vlan-mgmt network=10.100.1.0
 /ip address add address=10.200.1.1/24 comment=BL interface=vlan-users network=10.200.1.0
-/ip dhcp-client add disabled=yes interface=ether1-wan
 /ip dhcp-server add address-pool=pool-users comment=BL interface=vlan-users lease-time=1h name=dhcp-users
 /ip dhcp-server network add address=10.200.1.0/24 comment=BL dns-server=10.200.1.1 gateway=10.200.1.1
 /ip dns set allow-remote-requests=yes servers=1.1.1.1,9.9.9.9
