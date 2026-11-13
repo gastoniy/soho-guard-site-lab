@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7AJ6243KCY16XNNKVC7T6ZV",
+    "run_seq": 69,
+    "trigger": "timer",
+    "started_at": "2026-11-13T13:40:05.379Z",
+    "finished_at": "2026-11-13T13:40:16.006Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "7f1df825c4f22e5d5131484099d4d4d4d113ad59",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10534
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-13T12:40:15.953Z",
+        "to": "2026-11-13T13:40:15.953Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (0 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:266ca134f03a8e18a6e17653fee6a4348276a6464299a60779eaaca68f304412",
+      "rule": "local.drift.dhcp-clients",
+      "first_seen_at": "2026-11-13T13:35:15.400Z",
+      "resolved_at": "2026-11-13T13:40:15.946Z",
+      "resolved_by": "policy-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 5,
+    "previous_report_sha256": "61d41b56ca7ad7f974691e4f875b4388ec918012961ebe96d29539e4f4d51624"
+  }
+}
