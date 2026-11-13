@@ -3,24 +3,33 @@
   "kind": "state",
   "site_id": "lab",
   "router_id": "r1",
-  "posture": "no-violations",
+  "posture": "site-drift",
   "coverage": "full",
-  "open_findings": [],
+  "open_findings": [
+    {
+      "fingerprint": "sha256:266ca134f03a8e18a6e17653fee6a4348276a6464299a60779eaaca68f304412",
+      "rule": "local.drift.dhcp-clients",
+      "rule_source": "local",
+      "severity": "medium",
+      "compromise_indicator": false,
+      "first_seen_at": "2026-11-13T13:35:15.400Z"
+    }
+  ],
   "last_run": {
-    "run_id": "01M7AGVJQQAB1KSYE3AE0ZVH5N",
-    "run_seq": 65,
-    "finished_at": "2026-11-13T13:17:03.998Z"
+    "run_id": "01M7AHWWJ6AA74BVF5DJJPQSXC",
+    "run_seq": 68,
+    "finished_at": "2026-11-13T13:35:19.512Z"
   },
   "last_report": {
-    "run_id": "01M7AEF2ZF5SX27TRNEHZ86SHX",
-    "report_seq": 3,
-    "sha256": "be270e25ac579255a29e86436785744281ff56ad6eb3b34a41ada9b93b1b6b5b"
+    "run_id": "01M7AHWWJ6AA74BVF5DJJPQSXC",
+    "report_seq": 4,
+    "sha256": "61d41b56ca7ad7f974691e4f875b4388ec918012961ebe96d29539e4f4d51624"
   },
   "policy": {
     "universal_version": "v0.7.1-lab"
   },
   "heartbeat": {
-    "at": "2026-11-13T13:17:03.998Z",
+    "at": "2026-11-13T13:35:19.512Z",
     "interval_s": 1800
   }
 }
