@@ -7,20 +7,20 @@
   "coverage": "full",
   "open_findings": [],
   "last_run": {
-    "run_id": "01M7D09G6GED7A2VPMN9BNJG6C",
-    "run_seq": 76,
-    "finished_at": "2026-11-14T12:25:17.698Z"
+    "run_id": "01M7D0JQVSEBFHZ8D27PHTWYSB",
+    "run_seq": 77,
+    "finished_at": "2026-11-14T12:30:20.516Z"
   },
   "last_report": {
-    "run_id": "01M7D09G6GED7A2VPMN9BNJG6C",
-    "report_seq": 7,
-    "sha256": "8796e1481844a3d8e37b9f2b36a9eefe8fdabb9951bbc883fef2c4938e921afa"
+    "run_id": "01M7D0JQVSEBFHZ8D27PHTWYSB",
+    "report_seq": 8,
+    "sha256": "1a181cd17c66ba5b06f9f2d6cc5fbd1fef74696602a6d2e6fb9e2a354bc0bdf6"
   },
   "policy": {
     "universal_version": "v0.7.1-lab"
   },
   "heartbeat": {
-    "at": "2026-11-14T12:25:17.698Z",
+    "at": "2026-11-14T12:30:20.516Z",
     "interval_s": 1800
   }
 }
