@@ -1,0 +1,53 @@
+# Wzorzec bramki H5 (obiekty spoza /export) dla r2.
+# Wygenerowany: python -m harness gate r2 --dump-objects (router w baseline).
+# Tylko pola stabilne, bez wartości tajnych. Odświeżany PR-em operatora razem z export.rsc.
+schema_version: '1'
+router_id: r2
+generated_at: '2026-11-14T19:03:54.399Z'
+objects:
+  user:
+  - name: admin
+    group: full
+    address: ''
+    disabled: 'true'
+    comment: system default user
+  - name: ansible
+    group: bl-ansible
+    address: 10.100.2.0/24
+    disabled: 'false'
+    comment: BL
+  - name: breakglass
+    group: full
+    address: 10.100.2.0/24
+    disabled: 'false'
+    comment: BL
+  - name: monitor
+    group: bl-monitor
+    address: 10.100.2.10/32
+    disabled: 'false'
+    comment: BL
+  - name: remediate
+    group: bl-remediate
+    address: 10.100.2.10/32
+    disabled: 'false'
+    comment: BL
+  user ssh-keys:
+  - user: ansible
+    key-owner: ansible
+    bits: '4096'
+  - user: monitor
+    key-owner: monitor-r2
+    bits: '4096'
+  certificate:
+  - name: bl-api.crt_0
+    common-name: 10.100.2.1
+    fingerprint: 771fdfcbbd053ddc253b2595862b1eedf50cf930d303d95cad4db66794a13650
+    trusted: 'true'
+    private-key: 'true'
+  file:
+  - name: auto-before-reset.backup
+    type: backup
+  - name: pub
+    type: directory
+  - name: skins
+    type: directory
