@@ -3,24 +3,24 @@
   "kind": "state",
   "site_id": "lab",
   "router_id": "r2",
-  "posture": "no-violations",
-  "coverage": "full",
+  "posture": "inconclusive",
+  "coverage": "partial",
   "open_findings": [],
   "last_run": {
-    "run_id": "01M7D8JZXGSP43Z119MNMZNC4B",
-    "run_seq": 105,
-    "finished_at": "2026-11-14T14:50:17.274Z"
+    "run_id": "01M7DNF4Q0NB7VDTJY6C7QNX1V",
+    "run_seq": 106,
+    "finished_at": "2026-11-14T18:35:22.679Z"
   },
   "last_report": {
-    "run_id": "01M7D0JQVSEBFHZ8D27PHTWYSB",
-    "report_seq": 8,
-    "sha256": "1a181cd17c66ba5b06f9f2d6cc5fbd1fef74696602a6d2e6fb9e2a354bc0bdf6"
+    "run_id": "01M7DNF4Q0NB7VDTJY6C7QNX1V",
+    "report_seq": 9,
+    "sha256": "4b21998cd7e8be74d5fda961536ba98d7bb05374a4107ced5d225c23ef594b78"
   },
   "policy": {
     "universal_version": "v0.7.1-lab"
   },
   "heartbeat": {
-    "at": "2026-11-14T14:50:17.274Z",
+    "at": "2026-11-14T18:35:22.679Z",
     "interval_s": 1800
   }
 }
