@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7GB9KART04GVC4RVFQ2AXBK",
+    "run_seq": 202,
+    "trigger": "timer",
+    "started_at": "2026-11-15T19:35:07.864Z",
+    "finished_at": "2026-11-15T19:35:18.424Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "f4661caa568e11cfec582f5077b6bd47e3772109",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10434
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-15T18:35:18.331Z",
+        "to": "2026-11-15T19:35:18.331Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (155 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "policy-violation",
+    "coverage": "full",
+    "findings_total": 1,
+    "findings_new": 1,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:41b31c76f547e77ea087c03e546e90fb8ca13d68ccd83ecbb356997335dc6404",
+      "rule": "policy.mgmt.winbox.not-public",
+      "rule_source": "universal",
+      "also_matched": [
+        "local.drift.services"
+      ],
+      "phase": "static",
+      "severity": "critical",
+      "ioc": false,
+      "status": "new",
+      "first_seen_at": "2026-11-15T19:35:18.325Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/service",
+        "expected": {
+          "address": "private"
+        },
+        "observed": {
+          "address": ""
+        },
+        "local_ref": "ev:01M7GB9KART04GVC4RVFQ2AXBK/l1"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [
+    {
+      "action_id": "A-01",
+      "fingerprint": "sha256:41b31c76f547e77ea087c03e546e90fb8ca13d68ccd83ecbb356997335dc6404",
+      "type": "none",
+      "status": "skipped",
+      "reason": "reguła uniwersalna bez remediate, naruszenie widoczne w raporcie",
+      "started_at": null,
+      "finished_at": null,
+      "external_ref": null,
+      "verification": null,
+      "local_ref": null
+    }
+  ],
+  "integrity": {
+    "report_seq": 18,
+    "previous_report_sha256": "4f1c86023e800c2916823e0fc0499899c83a4786ba219cce9349f8ff158e3dfa"
+  }
+}
