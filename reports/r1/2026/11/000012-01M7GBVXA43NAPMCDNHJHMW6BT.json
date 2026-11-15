@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7GBVXA43NAPMCDNHJHMW6BT",
+    "run_seq": 204,
+    "trigger": "timer",
+    "started_at": "2026-11-15T19:45:07.908Z",
+    "finished_at": "2026-11-15T19:45:18.457Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "15ee4c1a61efed04e6d8be5553b5f100d6d638dd",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10445
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-15T18:45:18.388Z",
+        "to": "2026-11-15T19:45:18.388Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (367 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:ad55659872a831b8162fca45b5fe4245c7e9ebc8cd0aaf48754eba577f2317c1",
+      "rule": "local.drift.users",
+      "first_seen_at": "2026-11-15T19:40:17.399Z",
+      "resolved_at": "2026-11-15T19:45:18.382Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 12,
+    "previous_report_sha256": "1ad6f2152ec3a3916841f55b604259b2456933bb35087535ef0d9a9f29de86c0"
+  }
+}
