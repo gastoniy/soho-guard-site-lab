@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7GNA27VW5P1NNT6M2EXTD2N",
+    "run_seq": 237,
+    "trigger": "timer",
+    "started_at": "2026-11-15T22:30:08.891Z",
+    "finished_at": "2026-11-15T22:30:19.634Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "b4bee8ca2762fc358d574756a2282a5e2e0801de",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10420
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-15T21:30:19.345Z",
+        "to": "2026-11-15T22:30:19.345Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (320 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "policy-violation",
+    "coverage": "full",
+    "findings_total": 1,
+    "findings_new": 1,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:625ddaf2f1dd28493843e5770dab9f4d26d9f73a38495dc99d26293cc81784e5",
+      "rule": "policy.services.socks.disabled",
+      "rule_source": "universal",
+      "also_matched": [
+        "local.drift.socks"
+      ],
+      "phase": "static",
+      "severity": "critical",
+      "ioc": false,
+      "status": "new",
+      "first_seen_at": "2026-11-15T22:30:19.340Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/socks",
+        "expected": {
+          "enabled": "no"
+        },
+        "observed": {
+          "enabled": "yes"
+        },
+        "local_ref": "ev:01M7GNA27VW5P1NNT6M2EXTD2N/l1"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [
+    {
+      "action_id": "A-01",
+      "fingerprint": "sha256:625ddaf2f1dd28493843e5770dab9f4d26d9f73a38495dc99d26293cc81784e5",
+      "type": "auto-remediate",
+      "status": "succeeded",
+      "reason": "rule_source=universal; mitigation_mode=auto; ustawiono enabled=no",
+      "started_at": "2026-11-15T22:30:19.560Z",
+      "finished_at": "2026-11-15T22:30:19.633Z",
+      "external_ref": null,
+      "verification": {
+        "performed": true,
+        "layers": [
+          "L1"
+        ],
+        "result": "resolved"
+      },
+      "local_ref": "ev:01M7GNA27VW5P1NNT6M2EXTD2N/remediation"
+    }
+  ],
+  "integrity": {
+    "report_seq": 20,
+    "previous_report_sha256": "48c0b7a3a72add59bb4b50c735e7832d0faaef97c18bfd34b344158a4649a690"
+  }
+}
