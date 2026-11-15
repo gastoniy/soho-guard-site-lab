@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7GBJS54H17SGPH7NQZ5TN3E",
+    "run_seq": 203,
+    "trigger": "timer",
+    "started_at": "2026-11-15T19:40:08.740Z",
+    "finished_at": "2026-11-15T19:40:19.335Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "55c05d9c2f315d02aa90bc2de2324d56586af1ae",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10430
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-15T18:40:19.253Z",
+        "to": "2026-11-15T19:40:19.253Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (367 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:41b31c76f547e77ea087c03e546e90fb8ca13d68ccd83ecbb356997335dc6404",
+      "rule": "policy.mgmt.winbox.not-public",
+      "first_seen_at": "2026-11-15T19:35:18.325Z",
+      "resolved_at": "2026-11-15T19:40:19.245Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 19,
+    "previous_report_sha256": "45414a4603d9960c1a7b061cb33bf8041f2a82f89015b989b79ee9eae474b104"
+  }
+}
