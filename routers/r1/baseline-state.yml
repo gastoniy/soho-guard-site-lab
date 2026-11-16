@@ -148,7 +148,12 @@ firewall_nat:
   chain: srcnat
   comment: 'BL: masq'
   out-interface-list: WAN
-firewall_raw: []
+firewall_raw:
+- action: notrack
+  chain: output
+  comment: harness-DYN-011a
+  dst-address: 192.168.10.20
+  protocol: icmp
 identity:
 - name: R1-v7
 interfaces:
