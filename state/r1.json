@@ -13,31 +13,23 @@
       "severity": "critical",
       "compromise_indicator": true,
       "first_seen_at": "2026-11-16T19:20:19.540Z"
-    },
-    {
-      "fingerprint": "sha256:747016823fff3b28626d8a1411a3cc3ad7ec8edee1ee26a40ac1da8b9c8004ec",
-      "rule": "local.drift.firewall-raw",
-      "rule_source": "local",
-      "severity": "medium",
-      "compromise_indicator": false,
-      "first_seen_at": "2026-11-16T19:00:15.313Z"
     }
   ],
   "last_run": {
-    "run_id": "01M7JWTWJX5AM82SNADTVWD39R",
-    "run_seq": 314,
-    "finished_at": "2026-11-16T19:20:19.630Z"
+    "run_id": "01M7JX41NQKBRCCXWP5NFRYQX8",
+    "run_seq": 315,
+    "finished_at": "2026-11-16T19:25:19.803Z"
   },
   "last_report": {
-    "run_id": "01M7JWTWJX5AM82SNADTVWD39R",
-    "report_seq": 36,
-    "sha256": "75a4673dccb21c5556167f5f5c6b7249234e0c061f85ca0e9be390aa01232ba2"
+    "run_id": "01M7JX41NQKBRCCXWP5NFRYQX8",
+    "report_seq": 37,
+    "sha256": "5134c7ef6fae2c9b32922ee172718ebd73139e1809e77ee5aaa4f7449cff9046"
   },
   "policy": {
     "universal_version": "v0.7.1-lab"
   },
   "heartbeat": {
-    "at": "2026-11-16T19:20:19.630Z",
+    "at": "2026-11-16T19:25:19.803Z",
     "interval_s": 1800
   }
 }
