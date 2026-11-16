@@ -3,9 +3,17 @@
   "kind": "state",
   "site_id": "lab",
   "router_id": "r1",
-  "posture": "site-drift",
+  "posture": "compromise-suspected",
   "coverage": "full",
   "open_findings": [
+    {
+      "fingerprint": "sha256:4f28b67eceb3ccc7a308461fb5bfb30942022fb7c0feeacf2d94f58d1c54853b",
+      "rule": "integrity.divergence.connections",
+      "rule_source": "universal",
+      "severity": "critical",
+      "compromise_indicator": true,
+      "first_seen_at": "2026-11-16T18:10:19.940Z"
+    },
     {
       "fingerprint": "sha256:6acedbbed5a5262776866eb5f460ceb8719b704375d992ce165e10f8fd62ddb4",
       "rule": "local.drift.firewall-raw",
@@ -16,20 +24,20 @@
     }
   ],
   "last_run": {
-    "run_id": "01M7JQP3HF538WX23RCFCP5AA3",
-    "run_seq": 296,
-    "finished_at": "2026-11-16T17:50:24.261Z"
+    "run_id": "01M7JRTQC65HZ9NYXR02B2F7JR",
+    "run_seq": 300,
+    "finished_at": "2026-11-16T18:10:20.004Z"
   },
   "last_report": {
-    "run_id": "01M7JQP3HF538WX23RCFCP5AA3",
-    "report_seq": 31,
-    "sha256": "010964c749db58abe39e0ba6d20990aa19cab42aa7271d8db582ef2d0849d8ac"
+    "run_id": "01M7JRTQC65HZ9NYXR02B2F7JR",
+    "report_seq": 32,
+    "sha256": "3b0f0851e0d44d84b421c904e1243fea83c5b821f889b4edaf032df82bcecaf7"
   },
   "policy": {
     "universal_version": "v0.7.1-lab"
   },
   "heartbeat": {
-    "at": "2026-11-16T17:50:24.261Z",
+    "at": "2026-11-16T18:10:20.004Z",
     "interval_s": 1800
   }
 }
