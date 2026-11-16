@@ -13,31 +13,23 @@
       "severity": "critical",
       "compromise_indicator": true,
       "first_seen_at": "2026-11-16T15:05:18.752Z"
-    },
-    {
-      "fingerprint": "sha256:0860af8f27a0d020514bf49ab99d7bdbc1f3e3d149e3376539cf8c9c65e6b9d9",
-      "rule": "local.drift.firewall-raw",
-      "rule_source": "local",
-      "severity": "medium",
-      "compromise_indicator": false,
-      "first_seen_at": "2026-11-16T14:45:19.503Z"
     }
   ],
   "last_run": {
-    "run_id": "01M7JE7YD21FPK757WB51RE5VB",
-    "run_seq": 263,
-    "finished_at": "2026-11-16T15:05:18.832Z"
+    "run_id": "01M7JEH42PXCFHNSMMX5YV8Q1A",
+    "run_seq": 264,
+    "finished_at": "2026-11-16T15:10:19.572Z"
   },
   "last_report": {
-    "run_id": "01M7JE7YD21FPK757WB51RE5VB",
-    "report_seq": 24,
-    "sha256": "1691bb10e0d572aea56739bf4e1055912523341e416b4676220a0e8c59720958"
+    "run_id": "01M7JEH42PXCFHNSMMX5YV8Q1A",
+    "report_seq": 25,
+    "sha256": "3d09726ba68b660f14df5c904d46c055593dfa486e8e8038568b6f9bd3430182"
   },
   "policy": {
     "universal_version": "v0.7.1-lab"
   },
   "heartbeat": {
-    "at": "2026-11-16T15:05:18.832Z",
+    "at": "2026-11-16T15:10:19.572Z",
     "interval_s": 1800
   }
 }

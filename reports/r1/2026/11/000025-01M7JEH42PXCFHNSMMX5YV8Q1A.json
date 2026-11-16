@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7JEH42PXCFHNSMMX5YV8Q1A",
+    "run_seq": 264,
+    "trigger": "timer",
+    "started_at": "2026-11-16T15:10:08.982Z",
+    "finished_at": "2026-11-16T15:10:19.572Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "94ee89dbd5c2466cdb033ab81910e7cce1db73ac",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10433
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-16T14:10:19.502Z",
+        "to": "2026-11-16T15:10:19.502Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (212 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "compromise-suspected",
+    "coverage": "full",
+    "findings_total": 1,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:044cedd9520751b025edbd4f36ac7ad602d0dd67836748e3a285c06d56154468",
+      "rule": "integrity.divergence.connections",
+      "rule_source": "universal",
+      "also_matched": [],
+      "phase": "dynamic",
+      "severity": "critical",
+      "ioc": true,
+      "status": "persisting",
+      "first_seen_at": "2026-11-16T15:05:18.752Z",
+      "trust": {
+        "observed_by": [
+          "L2"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [
+          "L1"
+        ],
+        "divergence": true
+      },
+      "evidence": {
+        "type": "behavioral",
+        "l1_claim": {
+          "query": "/ip/firewall/connection",
+          "destination_present": false
+        },
+        "l2_observation": {
+          "destination": "192.168.10.20",
+          "dport": null,
+          "proto": "icmp",
+          "flow_count": 1,
+          "bytes_total": 67200,
+          "window": {
+            "from": "2026-11-16T14:10:19.502Z",
+            "to": "2026-11-16T15:10:19.502Z"
+          },
+          "detector": "zeek.conn",
+          "score": null
+        },
+        "local_ref": "ev:01M7JEH42PXCFHNSMMX5YV8Q1A/zeek"
+      }
+    }
+  ],
+  "resolved": [
+    {
+      "fingerprint": "sha256:0860af8f27a0d020514bf49ab99d7bdbc1f3e3d149e3376539cf8c9c65e6b9d9",
+      "rule": "local.drift.firewall-raw",
+      "first_seen_at": "2026-11-16T14:45:19.503Z",
+      "resolved_at": "2026-11-16T15:10:19.494Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 25,
+    "previous_report_sha256": "1691bb10e0d572aea56739bf4e1055912523341e416b4676220a0e8c59720958"
+  }
+}
