@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7MK68XYCR36DDX18AMEB4DF",
+    "run_seq": 351,
+    "trigger": "timer",
+    "started_at": "2026-11-17T11:10:05.246Z",
+    "finished_at": "2026-11-17T11:10:15.795Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "3e3020f6b43cd48e5736bf640def672dd3429242",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10448
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-17T10:10:15.734Z",
+        "to": "2026-11-17T11:10:15.734Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (230 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:7f163b3dc6ad1a76b91a24c766aaac3d48ebd096862e16084bb04963a9d9490b",
+      "rule": "local.drift.scheduler",
+      "first_seen_at": "2026-11-17T10:30:15.588Z",
+      "resolved_at": "2026-11-17T11:10:15.731Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 40,
+    "previous_report_sha256": "c801419f39fe8e4e4388e213a7d1d88d1575a1ec8b03d9089763718717d3462a"
+  }
+}
