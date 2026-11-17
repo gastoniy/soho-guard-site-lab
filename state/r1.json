@@ -16,9 +16,9 @@
     }
   ],
   "last_run": {
-    "run_id": "01M7MXFY0HDYQM3B2YNMQ0RK53",
-    "run_seq": 387,
-    "finished_at": "2026-11-17T14:10:17.991Z"
+    "run_id": "01M7MZFYWBHZ8ZHA159FZ0ERDJ",
+    "run_seq": 394,
+    "finished_at": "2026-11-17T14:45:16.081Z"
   },
   "last_report": {
     "run_id": "01M7MSRWY7VE4ENRVRC9CRFSXV",
@@ -29,7 +29,7 @@
     "universal_version": "v0.7.1-lab"
   },
   "heartbeat": {
-    "at": "2026-11-17T14:10:17.991Z",
+    "at": "2026-11-17T14:45:16.081Z",
     "interval_s": 1800
   }
 }
