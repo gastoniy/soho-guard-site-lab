@@ -348,7 +348,16 @@ routes:
   routing-table: main
   scope: 10
   target-scope: 5
-scheduler: []
+scheduler:
+- comment: harness-DYN-011b
+  disabled: false
+  interval: 1m
+  name: harness-beacon
+  on-event: /tool fetch url=http://192.168.10.25/ mode=http dst-path=beacon.tmp
+  owner: ansible
+  policy: ftp,reboot,read,write,policy,test,password,sensitive
+  start-date: '2026-11-17'
+  start-time: '14:01:49'
 scripts: []
 services:
 - address: ''
