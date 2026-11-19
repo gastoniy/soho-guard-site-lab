@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7TGA2CW2KHBNJDKVN08KPQV",
+    "run_seq": 753,
+    "trigger": "timer",
+    "started_at": "2026-11-19T18:15:10.492Z",
+    "finished_at": "2026-11-19T18:15:21.077Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "94042cc0ad08b20443c629468cdded1b87a7e3d0",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10462
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-19T17:15:21.030Z",
+        "to": "2026-11-19T18:15:21.030Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (310 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:41b31c76f547e77ea087c03e546e90fb8ca13d68ccd83ecbb356997335dc6404",
+      "rule": "policy.mgmt.winbox.not-public",
+      "first_seen_at": "2026-11-19T18:10:18.817Z",
+      "resolved_at": "2026-11-19T18:15:21.027Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 37,
+    "previous_report_sha256": "63cdd40299735b757d1981dc5d1d48f5f5b9df2ab4103a32965e961e36378fab"
+  }
+}
