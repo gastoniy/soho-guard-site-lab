@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7TE9YYJ11WP59TXARRX55PZ",
+    "run_seq": 746,
+    "trigger": "timer",
+    "started_at": "2026-11-19T17:40:09.810Z",
+    "finished_at": "2026-11-19T17:40:20.672Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "186d15eeda2791f6cbcf6167f8e6554335b10ab9",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10474
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-19T16:40:20.368Z",
+        "to": "2026-11-19T17:40:20.368Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (162 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "policy-violation",
+    "coverage": "full",
+    "findings_total": 1,
+    "findings_new": 1,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:f723ca3c298e00c9cd5021748460062267720ed701ef3578d003e01ba5f2fb99",
+      "rule": "policy.services.proxy.disabled",
+      "rule_source": "universal",
+      "also_matched": [
+        "local.drift.proxy"
+      ],
+      "phase": "static",
+      "severity": "high",
+      "ioc": false,
+      "status": "new",
+      "first_seen_at": "2026-11-19T17:40:20.363Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/proxy",
+        "expected": {
+          "enabled": "no"
+        },
+        "observed": {
+          "enabled": "yes"
+        },
+        "local_ref": "ev:01M7TE9YYJ11WP59TXARRX55PZ/l1"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [
+    {
+      "action_id": "A-01",
+      "fingerprint": "sha256:f723ca3c298e00c9cd5021748460062267720ed701ef3578d003e01ba5f2fb99",
+      "type": "auto-remediate",
+      "status": "succeeded",
+      "reason": "rule_source=universal; mitigation_mode=auto; ustawiono enabled=no",
+      "started_at": "2026-11-19T17:40:20.547Z",
+      "finished_at": "2026-11-19T17:40:20.671Z",
+      "external_ref": null,
+      "verification": {
+        "performed": true,
+        "layers": [
+          "L1"
+        ],
+        "result": "resolved"
+      },
+      "local_ref": "ev:01M7TE9YYJ11WP59TXARRX55PZ/remediation"
+    }
+  ],
+  "integrity": {
+    "report_seq": 31,
+    "previous_report_sha256": "776c4e93d4a8d6d7ae9ad1dfbbd71abbd57e03a2a32d260d93227d28dec38799"
+  }
+}
