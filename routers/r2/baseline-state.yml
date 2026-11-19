@@ -438,6 +438,12 @@ users:
   expired: false
   group: full
   name: breakglass
+- address: ''
+  comment: harness-SITE-008
+  disabled: true
+  expired: false
+  group: read
+  name: harness-site-008
 - address: 10.100.2.10/32
   comment: BL
   disabled: false
