@@ -7,9 +7,9 @@
   "coverage": "full",
   "open_findings": [],
   "last_run": {
-    "run_id": "01M7SCHKEF7P0C52H01EHSFQ64",
-    "run_seq": 664,
-    "finished_at": "2026-11-19T07:50:19.146Z"
+    "run_id": "01M7SEHQD7RHYTW06V6NV36TXH",
+    "run_seq": 671,
+    "finished_at": "2026-11-19T08:25:20.360Z"
   },
   "last_report": {
     "run_id": "01M7GK0V1RM6MZ6TWW2HM7S205",
@@ -20,7 +20,7 @@
     "universal_version": "v0.7.1-lab"
   },
   "heartbeat": {
-    "at": "2026-11-19T07:50:19.146Z",
+    "at": "2026-11-19T08:25:20.360Z",
     "interval_s": 1800
   }
 }
