@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7TK5KEV9QB86Q7RZ80RQZFM",
+    "run_seq": 763,
+    "trigger": "timer",
+    "started_at": "2026-11-19T19:05:09.851Z",
+    "finished_at": "2026-11-19T19:05:20.443Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r2",
+    "address": "10.100.2.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "6.49.19 (long-term)",
+    "identity_reported": "R2-v6",
+    "profile_used": "ros6"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "809bafef54e3f8db8c039790b8af00632ada0b7c",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10429
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-19T18:05:20.319Z",
+        "to": "2026-11-19T19:05:20.319Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (421 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 1
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:d778878eb815df105835195b2a844d1d772f822a2f0c41a06fa943e7ccc56177",
+      "rule": "local.ppp.secrets",
+      "first_seen_at": "2026-11-19T19:00:14.811Z",
+      "resolved_at": "2026-11-19T19:05:20.313Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 47,
+    "previous_report_sha256": "80c32163b8c74d4ded1941cfb9153443c1c3f9f65543377ded0ff8372e94c446"
+  }
+}
