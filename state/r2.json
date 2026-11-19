@@ -3,24 +3,33 @@
   "kind": "state",
   "site_id": "lab",
   "router_id": "r2",
-  "posture": "no-violations",
+  "posture": "policy-violation",
   "coverage": "full",
-  "open_findings": [],
+  "open_findings": [
+    {
+      "fingerprint": "sha256:41b31c76f547e77ea087c03e546e90fb8ca13d68ccd83ecbb356997335dc6404",
+      "rule": "policy.mgmt.winbox.not-public",
+      "rule_source": "universal",
+      "severity": "critical",
+      "compromise_indicator": false,
+      "first_seen_at": "2026-11-19T18:30:18.276Z"
+    }
+  ],
   "last_run": {
-    "run_id": "01M7TGWARS9VCSY210TWRABC1E",
-    "run_seq": 755,
-    "finished_at": "2026-11-19T18:25:19.481Z"
+    "run_id": "01M7TH5ENFCZWRTENV103QQCCY",
+    "run_seq": 756,
+    "finished_at": "2026-11-19T18:30:18.333Z"
   },
   "last_report": {
-    "run_id": "01M7TGWARS9VCSY210TWRABC1E",
-    "report_seq": 39,
-    "sha256": "b570e0e17629950886437a0bd9b860da935d8e09ee338348a1b8c62a93947613"
+    "run_id": "01M7TH5ENFCZWRTENV103QQCCY",
+    "report_seq": 40,
+    "sha256": "eac0637ce2c1be2de611a20728825894348c18c3c81302ca72e3e1d781871c54"
   },
   "policy": {
     "universal_version": "v0.7.1-lab"
   },
   "heartbeat": {
-    "at": "2026-11-19T18:25:19.481Z",
+    "at": "2026-11-19T18:30:18.333Z",
     "interval_s": 1800
   }
 }
