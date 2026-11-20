@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7W839MR53HZTTBP4BQ1N27R",
+    "run_seq": 814,
+    "trigger": "timer",
+    "started_at": "2026-11-20T10:30:08.792Z",
+    "finished_at": "2026-11-20T10:30:23.963Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "6b542fc990c06bd68589957ae273d6487527a20a",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10409
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-20T09:30:19.285Z",
+        "to": "2026-11-20T10:30:19.285Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (317 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "site-drift",
+    "coverage": "full",
+    "findings_total": 1,
+    "findings_new": 1,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:d778878eb815df105835195b2a844d1d772f822a2f0c41a06fa943e7ccc56177",
+      "rule": "local.ppp.secrets",
+      "rule_source": "local",
+      "also_matched": [],
+      "phase": "static",
+      "severity": "medium",
+      "ioc": false,
+      "status": "new",
+      "first_seen_at": "2026-11-20T10:30:19.280Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ppp/secret",
+        "expected": null,
+        "observed": {
+          "name": "harness-site-007",
+          "service": "any",
+          "caller-id": "",
+          "profile": "default",
+          "routes": "",
+          "ipv6-routes": "",
+          "limit-bytes-in": "0",
+          "limit-bytes-out": "0",
+          "last-logged-out": "1970-01-01 00:00:00",
+          "disabled": "no",
+          "comment": "harness-SITE-007"
+        },
+        "local_ref": "ev:01M7W839MR53HZTTBP4BQ1N27R/l1"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [
+    {
+      "action_id": "A-01",
+      "fingerprint": "sha256:d778878eb815df105835195b2a844d1d772f822a2f0c41a06fa943e7ccc56177",
+      "type": "open-pr",
+      "status": "succeeded",
+      "reason": "R8: drift, gałąź z propozycją baseline; scalenie PR akceptuje zmianę",
+      "started_at": "2026-11-20T10:30:19.379Z",
+      "finished_at": "2026-11-20T10:30:23.963Z",
+      "external_ref": "https://github.com/gastoniy/soho-guard-site-lab/compare/main...agent/r1/01M7W839MR53HZTTBP4BQ1N27R?expand=1",
+      "verification": null,
+      "local_ref": "ev:01M7W839MR53HZTTBP4BQ1N27R/baseline-proposal"
+    }
+  ],
+  "integrity": {
+    "report_seq": 57,
+    "previous_report_sha256": "20a7bad34af7bbb1323519df2d395d2c95cc738e1adbea4c93ef62177384518a"
+  }
+}
