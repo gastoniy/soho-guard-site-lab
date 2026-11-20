@@ -288,7 +288,18 @@ ntp_client:
   vrf: main
 ovpn_client: []
 ovpn_server: []
-ppp_secrets: []
+ppp_secrets:
+- caller-id: ''
+  comment: harness-SITE-007
+  disabled: false
+  ipv6-routes: ''
+  last-logged-out: '1970-01-01 00:00:00'
+  limit-bytes-in: 0
+  limit-bytes-out: 0
+  name: harness-site-007
+  profile: default
+  routes: ''
+  service: any
 proxy:
 - always-from-cache: false
   anonymous: false
