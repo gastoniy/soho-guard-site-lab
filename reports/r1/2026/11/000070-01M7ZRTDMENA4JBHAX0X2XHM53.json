@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M7ZRTDMENA4JBHAX0X2XHM53",
+    "run_seq": 899,
+    "trigger": "timer",
+    "started_at": "2026-11-21T19:20:07.054Z",
+    "finished_at": "2026-11-21T19:20:17.735Z",
+    "agent_version": "0.7.1",
+    "errors": []
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "82b90526856a79be288fa38a874a71b4464b7ff3",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10501
+    },
+    "l2": {
+      "required": true,
+      "status": "ok",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-21T18:20:17.646Z",
+        "to": "2026-11-21T19:20:17.646Z"
+      },
+      "note": "za mało ruchu TCP do oceny utraty pakietów (207 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "no-violations",
+    "coverage": "full",
+    "findings_total": 0,
+    "findings_new": 0,
+    "findings_resolved": 2
+  },
+  "findings": [],
+  "resolved": [
+    {
+      "fingerprint": "sha256:755cef262d03cee881e9a644f4ecd0a215063e6c55559d6ff851464430e2a10b",
+      "rule": "policy.dynamic.dga",
+      "first_seen_at": "2026-11-21T18:20:17.992Z",
+      "resolved_at": "2026-11-21T19:20:17.638Z",
+      "resolved_by": "external-change"
+    },
+    {
+      "fingerprint": "sha256:b0fb9cf6e51d9cebcf0ac192dcdf5254bd5ff1fc152a2409dd9fec2140883728",
+      "rule": "policy.dynamic.rogue-resolver",
+      "first_seen_at": "2026-11-21T18:20:17.992Z",
+      "resolved_at": "2026-11-21T19:20:17.638Z",
+      "resolved_by": "external-change"
+    }
+  ],
+  "actions": [],
+  "integrity": {
+    "report_seq": 70,
+    "previous_report_sha256": "89aad5033e2140e869ae1d868d21c02f4a5a6fd50e6eb0286cd6739215d1710c"
+  }
+}
