@@ -1,0 +1,227 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "report",
+  "run": {
+    "run_id": "01M824MK90P5PNNWMJ75PVKP2R",
+    "run_seq": 962,
+    "trigger": "timer",
+    "started_at": "2026-11-22T17:25:08.000Z",
+    "finished_at": "2026-11-22T17:25:18.653Z",
+    "agent_version": "0.7.1",
+    "errors": [
+      {
+        "stage": "publish",
+        "code": "publish.sync-failed",
+        "message": "git fetch: ssh: connect to host github.com port 22: Network is unreachable fatal: Could not read from remote repository. Please make sure you have the correct access rights and the repository exists."
+      },
+      {
+        "stage": "collect-l2",
+        "code": "selfcheck.no-router-traffic",
+        "message": "brak ruchu routera w L2 w ostatnich 60 min (mirror lub atrybucja)"
+      }
+    ]
+  },
+  "target": {
+    "site_id": "lab",
+    "router_id": "r1",
+    "address": "10.100.1.1",
+    "transport": "api-binary",
+    "routeros_version_reported": "7.20.8 (long-term)",
+    "identity_reported": "R1-v7",
+    "profile_used": "ros7"
+  },
+  "policy": {
+    "universal_version": "v0.7.1-lab",
+    "universal_commit": "8c1f507ea305faa644b28c94bf2fdf5c2f3fdfe7",
+    "local_commit": "6e1fd6952ca9b1255ddaae8c4f853038b3423eab",
+    "evaluation_mode": "enforce",
+    "mitigation_mode": "auto"
+  },
+  "collection": {
+    "l1": {
+      "required": true,
+      "status": "ok",
+      "duration_ms": 10479
+    },
+    "l2": {
+      "required": true,
+      "status": "degraded",
+      "sources": [
+        "zeek",
+        "rita"
+      ],
+      "window": {
+        "from": "2026-11-22T16:25:18.566Z",
+        "to": "2026-11-22T17:25:18.566Z"
+      },
+      "note": "brak ruchu routera w L2 w ostatnich 60 min (mirror lub atrybucja); nie oceniono: integrity.divergence.connections, policy.dynamic.dga, policy.dynamic.rogue-resolver; za mało ruchu TCP do oceny utraty pakietów (124 potwierdzeń)"
+    },
+    "l3": {
+      "required": false,
+      "status": "ok",
+      "sources": [
+        "otx"
+      ]
+    }
+  },
+  "verdict": {
+    "posture": "site-drift",
+    "coverage": "partial",
+    "findings_total": 4,
+    "findings_new": 0,
+    "findings_resolved": 0
+  },
+  "findings": [
+    {
+      "fingerprint": "sha256:649bc2073c5ac97743432146490bc739366270a5384263c0da3ab618b4e82dd2",
+      "rule": "local.drift.routes",
+      "rule_source": "local",
+      "also_matched": [],
+      "phase": "static",
+      "severity": "medium",
+      "ioc": false,
+      "status": "persisting",
+      "first_seen_at": "2026-11-22T16:30:19.389Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/route",
+        "expected": null,
+        "observed": {
+          "dst-address": "0.0.0.0/0",
+          "routing-table": "main",
+          "gateway": "192.168.20.1",
+          "immediate-gw": "",
+          "distance": "1",
+          "scope": "30",
+          "target-scope": "10",
+          "static": "yes",
+          "comment": "BL: default via ISP"
+        },
+        "local_ref": "ev:01M824MK90P5PNNWMJ75PVKP2R/l1"
+      }
+    },
+    {
+      "fingerprint": "sha256:88f26f5bc02a0cbbc3e853d5e384694b836452474f5eb3b1d93b022c32c32ce6",
+      "rule": "local.drift.routes",
+      "rule_source": "local",
+      "also_matched": [],
+      "phase": "static",
+      "severity": "medium",
+      "ioc": false,
+      "status": "persisting",
+      "first_seen_at": "2026-11-22T16:30:19.389Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/route",
+        "expected": {
+          "active": "yes",
+          "connect": "yes",
+          "distance": "0",
+          "dst-address": "192.168.20.0/24",
+          "gateway": "ether1-wan",
+          "immediate-gw": "ether1-wan",
+          "local-address": "192.168.20.21%ether1-wan",
+          "routing-table": "main",
+          "scope": "10",
+          "target-scope": "5"
+        },
+        "observed": null,
+        "local_ref": "ev:01M824MK90P5PNNWMJ75PVKP2R/l1"
+      }
+    },
+    {
+      "fingerprint": "sha256:0b6d72359eaac4a6c0c7ec1df980c963ddf29a9f0ea6a111585b1faf1baadf77",
+      "rule": "local.drift.routes",
+      "rule_source": "local",
+      "also_matched": [],
+      "phase": "static",
+      "severity": "medium",
+      "ioc": false,
+      "status": "persisting",
+      "first_seen_at": "2026-11-22T16:30:19.389Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/route",
+        "expected": null,
+        "observed": {
+          "dst-address": "192.168.20.0/24",
+          "routing-table": "main",
+          "gateway": "ether1-wan",
+          "distance": "0",
+          "scope": "10",
+          "target-scope": "5",
+          "local-address": "192.168.20.21%ether1-wan",
+          "connect": "yes"
+        },
+        "local_ref": "ev:01M824MK90P5PNNWMJ75PVKP2R/l1"
+      }
+    },
+    {
+      "fingerprint": "sha256:4678c05086428c082fc817a7bff0b98328f04d2d5c785937c11dfc5fb9a4e032",
+      "rule": "local.drift.routes",
+      "rule_source": "local",
+      "also_matched": [],
+      "phase": "static",
+      "severity": "medium",
+      "ioc": false,
+      "status": "persisting",
+      "first_seen_at": "2026-11-22T16:30:19.389Z",
+      "trust": {
+        "observed_by": [
+          "L1"
+        ],
+        "corroborated_by": [],
+        "contradicted_by": [],
+        "divergence": false
+      },
+      "evidence": {
+        "type": "state",
+        "path": "/ip/route",
+        "expected": {
+          "active": "yes",
+          "comment": "BL: default via ISP",
+          "distance": "1",
+          "dst-address": "0.0.0.0/0",
+          "gateway": "192.168.20.1",
+          "immediate-gw": "192.168.20.1%ether1-wan",
+          "routing-table": "main",
+          "scope": "30",
+          "static": "yes",
+          "target-scope": "10"
+        },
+        "observed": null,
+        "local_ref": "ev:01M824MK90P5PNNWMJ75PVKP2R/l1"
+      }
+    }
+  ],
+  "resolved": [],
+  "actions": [],
+  "integrity": {
+    "report_seq": 74,
+    "previous_report_sha256": "66f63ef4e03630437e8e5b52654b8ac9946d3c58410e829a3dbcab00badcd6ca"
+  }
+}
