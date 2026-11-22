@@ -1,0 +1,39 @@
+count: 10
+findings:
+- detail: 'istnieje wpis pasujący: {''name'': ''admin'', ''disabled'': ''no''}'
+  rule: policy.accounts.default-admin.disabled
+  severity: critical
+- detail: '/ip/service address='''', oczekiwano {''private'': True}'
+  rule: policy.mgmt.winbox.not-public
+  severity: critical
+- detail: '/ip/service address='''', oczekiwano {''private'': True}'
+  rule: policy.mgmt.api-ssl.not-public
+  severity: critical
+- detail: /ip/service disabled=False, oczekiwano 'yes'
+  rule: policy.mgmt.www.not-public
+  severity: high
+- detail: '/ip/neighbor/discovery-settings discover-interface-list=''static'', oczekiwano
+    {''not_one_of'': [''all'', ''static'', ''dynamic'', ''!dynamic'']}'
+  rule: policy.mgmt.neighbor-discovery.restricted
+  severity: high
+- detail: /ip/ssh strong-crypto=False, oczekiwano 'yes'
+  rule: policy.mgmt.ssh.strong-crypto
+  severity: medium
+- detail: /ip/service disabled=False, oczekiwano 'yes'
+  rule: policy.services.telnet.disabled
+  severity: high
+- detail: /ip/service disabled=False, oczekiwano 'yes'
+  rule: policy.services.ftp.disabled
+  severity: medium
+- detail: /ip/service disabled=False, oczekiwano 'yes'
+  rule: policy.services.api-plain.disabled
+  severity: high
+- detail: /tool/bandwidth-server enabled=True, oczekiwano 'no'
+  rule: policy.services.bandwidth-server.disabled
+  severity: medium
+not_evaluated: []
+note: 'Wykryto 10 naruszeń polityki uniwersalnej w chwili adopcji. Urządzenie mogło
+  zostać przejęte przed onboardingiem — przejrzyj naruszenia i usuń ich przyczynę
+  przed zatwierdzeniem inwentarza. Zakres: wyłącznie stan konfiguracji widoczny przez
+  API — nie wyklucza kompromitacji ukrytej przed self-reportem (weryfikuje ją faza
+  dynamiczna).'
